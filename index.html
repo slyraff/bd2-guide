@@ -1,0 +1,1872 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BD2 Guide Parfait</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Bebas+Neue&display=swap">
+<style>
+:root{
+  --bg:#F1F2F7; --surface:#FFFFFF; --surface-2:#E7E9F2; --ink:#141726; --ink-2:#474C64; --ink-3:#6A6F88;
+  --line:#D4D7E4; --line-2:#BEC2D6;
+  --gold:#855C0E; --gold-strong:#DDAA3C; --gold-bg:#F7EACB; --on-gold:#1B1405;
+  --phys:#7F5E00; --phys-bg:#FCEFBF; --mag:#9E1D6D; --mag-bg:#F9DCEC;
+  --ok:#1B6E45; --ok-bg:#DBF1E4; --wait:#8E5307; --wait-bg:#FAE8CA; --stop:#A81F2E; --stop-bg:#F7DBDF;
+  --info:#2A45AE; --info-bg:#DFE5FA; --neutral:#4E5470; --neutral-bg:#E4E6EF;
+  --water:#1D69C8; --fire:#C9402A; --wind:#1A8D52; --light:#A07A0E; --dark:#7039B5;
+  --shadow:0 12px 32px rgba(20,23,38,.16);
+  --display:"Bebas Neue","Oswald",Impact,"Arial Narrow",sans-serif;
+  --body:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  --cond:"Barlow Semi Condensed","Barlow","Arial Narrow",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0C0E1A; --surface:#141829; --surface-2:#1B2039; --ink:#E6E8F3; --ink-2:#AAB0CA; --ink-3:#868CAA;
+    --line:#272E4B; --line-2:#363E64;
+    --gold:#EBC064; --gold-strong:#E4B34A; --gold-bg:#2F2712; --on-gold:#1B1405;
+    --phys:#F2CA4F; --phys-bg:#33290D; --mag:#F07FC2; --mag-bg:#381530;
+    --ok:#63D59C; --ok-bg:#102C1D; --wait:#F1B45E; --wait-bg:#352510; --stop:#FF7F8A; --stop-bg:#38161D;
+    --info:#97AAFF; --info-bg:#18204A; --neutral:#B3B8D1; --neutral-bg:#232944;
+    --water:#62A6FF; --fire:#FF7C60; --wind:#55D18F; --light:#F0CC5A; --dark:#B893FF;
+    --shadow:0 12px 32px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0C0E1A; --surface:#141829; --surface-2:#1B2039; --ink:#E6E8F3; --ink-2:#AAB0CA; --ink-3:#868CAA;
+  --line:#272E4B; --line-2:#363E64;
+  --gold:#EBC064; --gold-strong:#E4B34A; --gold-bg:#2F2712; --on-gold:#1B1405;
+  --phys:#F2CA4F; --phys-bg:#33290D; --mag:#F07FC2; --mag-bg:#381530;
+  --ok:#63D59C; --ok-bg:#102C1D; --wait:#F1B45E; --wait-bg:#352510; --stop:#FF7F8A; --stop-bg:#38161D;
+  --info:#97AAFF; --info-bg:#18204A; --neutral:#B3B8D1; --neutral-bg:#232944;
+  --water:#62A6FF; --fire:#FF7C60; --wind:#55D18F; --light:#F0CC5A; --dark:#B893FF;
+  --shadow:0 12px 32px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.58 var(--body);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+a{color:var(--info);text-underline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--gold-strong);outline-offset:2px}
+mark{background:var(--gold-bg);color:inherit;padding:0 1px}
+
+/* Barre du haut */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1300px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
+.brand{font-family:var(--display);font-size:26px;letter-spacing:.04em;line-height:1;white-space:nowrap;color:var(--ink);text-decoration:none}
+.brand span{color:var(--gold)}
+.search{position:relative;flex:1;max-width:560px;margin-left:auto}
+.search input{width:100%;font:500 15px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);padding:9px 12px;border-radius:0}
+.search input::placeholder{color:var(--ink-3)}
+.results{position:absolute;top:calc(100% + 6px);left:0;right:0;max-height:min(72vh,640px);overflow:auto;background:var(--surface);border:1px solid var(--line-2);box-shadow:var(--shadow);z-index:40}
+.results .head{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;font:700 12px var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:var(--surface-2)}
+.results a{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;padding:10px 12px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.results a:hover,.results a.sel{background:var(--surface-2)}
+.results .k{grid-row:span 3;align-self:start;margin-top:2px}
+.results .t{font:700 15px/1.3 var(--cond)}
+.results .s{font-size:14px;color:var(--ink-2);line-height:1.4}
+.results .w{font:600 12px var(--cond);color:var(--ink-3);letter-spacing:.04em}
+.results .none{padding:14px 12px;color:var(--ink-2);font-size:15px}
+.tocbtn{display:none;font:700 13px var(--cond);letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--bg);border:0;padding:10px 12px;cursor:pointer}
+
+/* Structure */
+.shell{max-width:1300px;margin:0 auto;padding-inline:16px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:44px}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding-block:22px 30px}
+.toc p{font:700 12px var(--cond);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 8px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:1px}
+.toc a{display:grid;grid-template-columns:28px 1fr;align-items:baseline;gap:6px;padding:5px 8px;color:var(--ink-2);text-decoration:none;font:600 14.5px/1.25 var(--cond);border-left:2px solid transparent}
+.toc a b{font-family:var(--display);font-weight:400;font-size:17px;color:var(--ink-3)}
+.toc a:hover{background:var(--surface-2);color:var(--ink)}
+.toc a.active{border-left-color:var(--gold-strong);color:var(--ink);background:var(--surface)}
+.toc a.active b{color:var(--gold)}
+main{min-width:0;padding-bottom:80px}
+
+/* En-tête */
+.hero{padding-block:40px 28px}
+.kicker{font:700 12.5px var(--cond);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(56px,10vw,116px);line-height:.84;letter-spacing:.005em;margin:0;text-wrap:balance}
+h1 .small{display:block;font-size:.34em;letter-spacing:.06em;color:var(--ink-2);margin-bottom:.18em}
+.hero .lead{font-size:clamp(17px,2.1vw,19.5px);line-height:1.5;color:var(--ink-2);max-width:64ch;margin:18px 0 0}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.facts li{font:600 13.5px var(--cond);background:var(--surface);border:1px solid var(--line);padding:5px 10px;color:var(--ink-2)}
+.facts li b{color:var(--ink)}
+.quick{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.quick a{font:700 13px var(--cond);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);border:1px solid var(--line-2);padding:6px 10px;background:var(--surface)}
+.quick a:hover{border-color:var(--gold-strong)}
+.quick span{font:600 14px var(--cond);color:var(--ink-2)}
+
+/* Sections */
+.sec{padding-block:48px 6px;border-top:1px solid var(--line);scroll-margin-top:70px}
+.sec-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start;margin-bottom:20px}
+.cart{font-family:var(--display);font-size:42px;line-height:1;color:var(--on-gold);background:var(--gold-strong);padding:10px 13px 6px;min-width:66px;text-align:center;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
+.eyebrow{font:700 12px var(--cond);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:2px 0 4px}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(34px,5vw,50px);line-height:.95;letter-spacing:.01em;margin:0;text-wrap:balance}
+.sec-head .lede{margin:8px 0 0;color:var(--ink-2);max-width:68ch}
+h3{font-family:var(--display);font-weight:400;font-size:28px;line-height:1;letter-spacing:.02em;margin:36px 0 12px;text-wrap:balance;scroll-margin-top:70px}
+h3 .n{color:var(--gold);margin-right:8px}
+h4{font:700 14px var(--cond);letter-spacing:.1em;text-transform:uppercase;margin:22px 0 8px;color:var(--ink-2)}
+.prose p{max-width:72ch;margin:0 0 12px}
+ul.list,ol.list{margin:0 0 14px;padding-left:20px;display:grid;gap:5px}
+ul.list li,ol.list li{max-width:72ch}
+ul.list li::marker{color:var(--gold)}
+.muted{color:var(--ink-3)}
+
+/* Tableaux */
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--surface);margin:12px 0 18px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+table.wide{min-width:780px}
+table.mid{min-width:600px}
+th{font:700 12px/1.2 var(--cond);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:10px 12px;background:var(--surface-2);border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:first-child td{border-top:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+b.name{font-weight:700}
+
+/* Pastilles */
+.c{display:inline-block;font:700 11.5px/1 var(--cond);letter-spacing:.08em;text-transform:uppercase;padding:5px 7px 4px;white-space:nowrap;vertical-align:1px}
+.c-do{color:var(--ok);background:var(--ok-bg)}
+.c-wait{color:var(--wait);background:var(--wait-bg)}
+.c-stop{color:var(--stop);background:var(--stop-bg)}
+.c-opt{color:var(--info);background:var(--info-bg)}
+.c-neu{color:var(--neutral);background:var(--neutral-bg)}
+.c-new{color:var(--on-gold);background:var(--gold-strong)}
+.t{display:inline-block;font:700 11px/1 var(--cond);letter-spacing:.06em;text-transform:uppercase;padding:4px 6px 3px;white-space:nowrap}
+.t-phys{color:var(--phys);background:var(--phys-bg)}
+.t-mag{color:var(--mag);background:var(--mag-bg)}
+.t-uni{color:var(--neutral);background:var(--neutral-bg)}
+.el{font:700 12.5px var(--cond);white-space:nowrap}
+.el::before{content:"";display:inline-block;width:9px;height:9px;margin-right:5px;transform:rotate(45deg)}
+.el-eau::before{background:var(--water)} .el-feu::before{background:var(--fire)} .el-vent::before{background:var(--wind)}
+.el-lumiere::before{background:var(--light)} .el-tenebres::before{background:var(--dark)} .el-none::before{background:var(--ink-3)}
+
+/* Encadrés */
+.note{border-left:4px solid var(--line-2);background:var(--surface);padding:13px 16px;margin:14px 0 18px;display:grid;gap:4px}
+.note > b:first-child{font:700 12px var(--cond);letter-spacing:.14em;text-transform:uppercase}
+.note p{margin:0;max-width:74ch}
+.note-gold{border-color:var(--gold-strong)} .note-gold > b:first-child{color:var(--gold)}
+.note-stop{border-color:var(--stop)} .note-stop > b:first-child{color:var(--stop)}
+.note-pro{border-color:var(--info)} .note-pro > b:first-child{color:var(--info)}
+.note-ok{border-color:var(--ok)} .note-ok > b:first-child{color:var(--ok)}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0 18px}
+.card{background:var(--surface);border:1px solid var(--line);padding:15px 16px;display:grid;gap:8px;align-content:start}
+.card h4{margin:0;color:var(--ink)}
+.card p{margin:0;font-size:15px}
+.card ul{margin:0;padding-left:18px;display:grid;gap:3px;font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+
+details.more{border:1px solid var(--line);background:var(--surface);margin:10px 0 16px}
+details.more > summary{cursor:pointer;list-style:none;padding:11px 14px;font:700 13.5px var(--cond);letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:"+";font-family:var(--display);font-size:22px;line-height:.8;color:var(--gold)}
+details.more[open] > summary::after{content:"-"}
+details.more > .in{padding:0 14px 12px}
+
+/* Horloge */
+.clock{background:var(--surface);border:1px solid var(--line);margin:10px 0 16px}
+.clock .now{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:12px 14px;background:var(--surface-2);font:600 14px var(--cond);color:var(--ink-2)}
+.clock .now b{color:var(--ink)}
+.tm{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:11px 14px;border-top:1px solid var(--line);align-items:center}
+.tm .lab{display:grid;gap:3px}
+.tm .lab b{font:700 15.5px/1.2 var(--cond)}
+.tm .lab small{font-size:13.5px;color:var(--ink-2);line-height:1.35}
+.tm .val{text-align:right;display:grid;gap:2px;justify-items:end}
+.tm .cd{font-family:var(--display);font-size:27px;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.tm .at{font:600 12.5px var(--cond);color:var(--ink-3);white-space:nowrap}
+.tm.hot .cd{color:var(--stop)}
+.tm.good .cd{color:var(--ok)}
+.perso-t{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:10px 0 16px}
+.perso-t div{background:var(--surface);border:1px solid var(--line);padding:12px 14px;display:grid;gap:6px}
+.perso-t b{font:700 15px var(--cond)}
+.perso-t .cd{font-family:var(--display);font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
+.perso-t .row{display:flex;gap:6px;flex-wrap:wrap}
+.btn{font:700 12px var(--cond);letter-spacing:.08em;text-transform:uppercase;background:var(--surface);border:1px solid var(--line-2);color:var(--ink);padding:6px 9px;cursor:pointer}
+.btn:hover{border-color:var(--gold-strong)}
+.btn.main{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* Checklists */
+.routine{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin:14px 0 18px}
+.ck{background:var(--surface);border:1px solid var(--line);padding:14px 14px 10px;display:grid;gap:8px;align-content:start}
+.ck-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.ck-head h4{margin:0;color:var(--ink)}
+.ck-head .prog{font:700 13px var(--cond);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.ck .when{font:600 12.5px var(--cond);color:var(--ink-3)}
+.bar{height:4px;background:var(--surface-2)}
+.bar i{display:block;height:100%;width:0;background:var(--gold-strong);transition:width .2s}
+.ck ul{list-style:none;margin:0;padding:0}
+.ck li{border-top:1px solid var(--line)}
+.ck li:first-child{border-top:0}
+.ck label{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;padding:7px 0;cursor:pointer;font-size:15px;line-height:1.4}
+.ck input{width:17px;height:17px;margin:2px 0 0;accent-color:var(--gold-strong)}
+.ck input:checked + span{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line-2)}
+.lo{font-weight:600;color:var(--ink-3);font-size:13px}
+
+/* FAQ */
+.faq-cat{margin:26px 0 8px}
+details.faq{border-top:1px solid var(--line);background:var(--surface);scroll-margin-top:80px}
+details.faq:last-child{border-bottom:1px solid var(--line)}
+.faq-list{border-left:1px solid var(--line);border-right:1px solid var(--line)}
+details.faq > summary{cursor:pointer;list-style:none;padding:11px 14px;font:700 15.5px/1.35 var(--cond);display:grid;grid-template-columns:1fr auto;gap:10px}
+details.faq > summary::-webkit-details-marker{display:none}
+details.faq > summary::after{content:"+";font-family:var(--display);font-size:22px;line-height:1;color:var(--gold)}
+details.faq[open] > summary::after{content:"-"}
+details.faq > div{padding:0 14px 13px;color:var(--ink-2);max-width:78ch}
+details.faq > div p{margin:0 0 8px}
+
+/* Bases de données */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 12px}
+.filters select,.filters input[type=text]{font:500 14.5px var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line-2);padding:7px 9px;border-radius:0}
+.filters label.chk{display:flex;align-items:center;gap:6px;font:600 14px var(--cond);color:var(--ink-2);cursor:pointer}
+.filters .count{font:700 13px var(--cond);color:var(--ink-3);margin-left:auto}
+.cos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px}
+.cos{background:var(--surface);border:1px solid var(--line);padding:13px 14px;display:grid;gap:6px;align-content:start;scroll-margin-top:90px}
+.cos.moi{border-color:var(--gold-strong)}
+.cos .top{display:flex;justify-content:space-between;gap:8px;align-items:start}
+.cos h4{margin:0;font:700 16px/1.2 var(--cond);letter-spacing:.01em;text-transform:none;color:var(--ink)}
+.cos .who{font:600 13px var(--cond);color:var(--ink-3)}
+.cos .tags{display:flex;flex-wrap:wrap;gap:5px}
+.cos p{margin:0;font-size:14.5px;line-height:1.45}
+.cos .k{font:700 12px var(--cond);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-right:4px}
+.cos .avis{border-top:1px dashed var(--line-2);padding-top:7px;display:grid;gap:4px}
+.cos .alias{color:var(--ink-3);font-size:13px}
+.modes{display:flex;flex-wrap:wrap;gap:4px}
+.modes span{font:600 12px var(--cond);background:var(--surface-2);padding:2px 6px}
+.rap{border:1px solid var(--line);background:var(--surface);margin:0 0 8px;scroll-margin-top:90px}
+.rap > summary{cursor:pointer;list-style:none;padding:11px 14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 12px}
+.rap > summary::-webkit-details-marker{display:none}
+.rap > summary b{font:700 15.5px var(--cond)}
+.rap > summary span{font:600 13.5px var(--cond);color:var(--ink-2)}
+.rap .tbl{margin:0;border:0;border-top:1px solid var(--line)}
+td.ok{color:var(--ok);font-weight:600}
+td.ko{color:var(--ink-3)}
+.gl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
+.gl{background:var(--surface);border:1px solid var(--line);padding:11px 13px;display:grid;gap:4px;scroll-margin-top:90px}
+.gl b{font:700 15px var(--cond)}
+.gl small{color:var(--ink-3);font-size:12.5px}
+.gl p{margin:0;font-size:14.5px;line-height:1.45}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:var(--surface);border:1px solid var(--line);padding:4px 8px;font:600 13.5px var(--cond)}
+tr.cur td{background:var(--gold-bg)}
+.flash{animation:flash 2.4s ease-out}
+@keyframes flash{0%,35%{box-shadow:0 0 0 3px var(--gold-strong)}100%{box-shadow:0 0 0 0 transparent}}
+
+footer{border-top:1px solid var(--line);margin-top:40px;padding-top:18px;color:var(--ink-3);font-size:14px}
+
+@media (max-width:1000px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:0}
+  .tocbtn{display:inline-block}
+  .toc{display:none;position:fixed;left:0;right:0;bottom:0;top:calc(env(safe-area-inset-top,0px) + 58px);max-height:none;z-index:25;background:var(--bg);padding:16px 16px calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+  .toc.open{display:block}
+  .brand{font-size:22px}
+}
+@media (max-width:560px){
+  .sec-head{grid-template-columns:minmax(0,1fr);gap:10px}
+  .cart{justify-self:start;font-size:34px;min-width:56px}
+  body{font-size:15.5px}
+  .tm{grid-template-columns:minmax(0,1fr)}
+  .tm .val{justify-items:start;text-align:left}
+  .topbar-in{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#top">BD2 <span>V10</span></a>
+    <div class="search" role="search">
+      <label for="q" class="muted" hidden>Rechercher dans le guide</label>
+      <input id="q" type="search" placeholder="Pose ta question : tear, reset, Celia, pub, wrath..." autocomplete="off" aria-controls="results">
+      <div class="results" id="results" hidden></div>
+    </div>
+    <button class="tocbtn" id="tocbtn" type="button" aria-expanded="false" aria-controls="toc">Sommaire</button>
+  </div>
+</header>
+
+<div class="shell" id="top">
+<nav class="toc" id="toc" aria-label="Sommaire">
+  <p>Sommaire</p>
+  <ol>
+    <li><a href="#horloge"><b>00</b>Horloge du jeu</a></li>
+    <li><a href="#maintenant"><b>01</b>Ce soir</a></li>
+    <li><a href="#plan-compte"><b>02</b>Plan de compte</a></li>
+    <li><a href="#corrections"><b>03</b>Corrections</a></li>
+    <li><a href="#roster"><b>04</b>Ton roster</a></li>
+    <li><a href="#teams"><b>05</b>Teams</a></li>
+    <li><a href="#combat"><b>06</b>Combat</a></li>
+    <li><a href="#gacha"><b>07</b>Gacha et Pub</a></li>
+    <li><a href="#progression"><b>08</b>Progression</a></li>
+    <li><a href="#gear"><b>09</b>Gear</a></li>
+    <li><a href="#modes"><b>10</b>Tous les modes</a></li>
+    <li><a href="#shops"><b>11</b>Boutiques</a></li>
+    <li><a href="#routine"><b>12</b>Routine</a></li>
+    <li><a href="#plan"><b>13</b>Plan 30 / 90 jours</a></li>
+    <li><a href="#faq"><b>14</b>FAQ</a></li>
+    <li><a href="#costumes"><b>15</b>Tous les costumes</a></li>
+    <li><a href="#rapport"><b>16</b>Réponses Rapport</a></li>
+    <li><a href="#bosses"><b>17</b>Boss Fiend Hunter</a></li>
+    <li><a href="#glossaire"><b>18</b>Glossaire</a></li>
+    <li><a href="#boutons"><b>19</b>Tu hésites ?</a></li>
+    <li><a href="#argent"><b>20</b>Si tu dépenses</a></li>
+    <li><a href="#sources"><b>21</b>Sources</a></li>
+  </ol>
+</nav>
+
+<main id="main">
+
+<section class="hero" aria-labelledby="h1">
+  <p class="kicker">Brown Dust 2 · Guide personnalisé · Audit du 29/09/2026</p>
+  <h1 id="h1"><span class="small">Compte Celia + Kyouka 80</span>Guide Parfait V10</h1>
+  <p class="lead">Tout le jeu au même endroit : ce que tu fais ce soir, qui monter, combien de teams, où dépenser chaque ressource, chaque mode, chaque boutique, 187 costumes, les réponses de Rapport, les boss du Fiend Hunter, et une horloge qui calcule tous les resets toute seule. Tape ta question dans la barre du haut.</p>
+  <ul class="facts">
+    <li><b>Kyouka</b> niveau 80</li>
+    <li><b>The Curse Celia</b> via Infinite Draw</li>
+    <li>Team phys : <b>Arines · Samay · Kyouka · Nebris · Rou</b></li>
+    <li>~50 pulls faits sur la collab</li>
+  </ul>
+  <div class="quick">
+    <span>Accès rapide</span>
+    <a href="#horloge">Horloge</a>
+    <a href="#maintenant">Ce soir</a>
+    <a href="#plan-compte">Qui monter</a>
+    <a href="#faq">FAQ</a>
+    <a href="#costumes">Costumes</a>
+    <a href="#routine">Routine</a>
+  </div>
+</section>
+
+<!-- 00 HORLOGE -->
+<section class="sec" id="horloge" data-s>
+  <div class="sec-head"><div class="cart">00</div><div><p class="eyebrow">Automatique</p><h2>Horloge du jeu</h2><p class="lede">Tout est calculé en direct à partir du cycle officiel de 28 jours (ancre du 30/07/2026) et affiché à ton heure locale. Le passage à l'heure d'hiver est géré tout seul.</p></div></div>
+  <p class="prose">Timers suivis : reset quotidien, Talks de Rapport, fin de la semaine de jeu, Mirror Wars, Golden Colosseum, Fiend Hunter (chasse ou entraînement, boss et élément conseillé), Guild Raid, Season Event, shops d'event, saison de 28 jours (Season Pass, Taros, Tower of Salvation), The Soul Wager, boutiques mensuelles et bannières actives.</p>
+  <div class="clock">
+    <div class="now" id="clock-now">Calcul en cours...</div>
+    <div id="clock-rows"></div>
+  </div>
+  <h3>Ce cycle de 28 jours</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Semaine</th><th>Dates (UTC)</th><th>Au programme</th></tr></thead>
+    <tbody id="cycle-rows"></tbody>
+  </table></div>
+  <h3>Tes minuteurs perso</h3>
+  <p class="prose">Le jeu ne dit pas quand ton Glupy Diner ou ton piège à poissons sont pleins. Appuie sur « Fait » quand tu récupères : le compte à rebours se lance et reste enregistré dans ce navigateur.</p>
+  <div class="perso-t" id="perso-timers"></div>
+</section>
+
+<!-- 01 -->
+<section class="sec" id="maintenant" data-s>
+  <div class="sec-head"><div class="cart">01</div><div><p class="eyebrow">Maintenant</p><h2>Ce que tu fais ce soir</h2><p class="lede">La seule section dont tu as besoin pour jouer aujourd'hui.</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Statut</th><th>Objet</th><th>Action</th><th>Pourquoi</th></tr></thead>
+    <tbody>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">Kyouka 80</b></td><td>Claim ses copies jusqu'à +5 et son <b>UR EX gratuite</b>, équipe-la. Garde-la niveau 80.</td><td>L'investissement est fait, elle carry le début. Notée D partout par DotGG : aucune Tear, aucun Golden Thread, aucun gear gacha sur elle.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">Sparks of the Otherworld</b></td><td>Burst 1 de Kyouka (60 Sparks + 50K Gold). Sans Ren ni Tenka, pousse B2 puis B3.</td><td>Monnaie réservée aux costumes collab : aucun autre usage pour toi. Kyouka B1 est en priorité haute au Compendium.</td></tr>
+      <tr><td><span class="c c-do">Fais</span> <span class="c c-new">Cette semaine</span></td><td><b class="name">Fiend Hunter : Spirit of the Mine</b></td><td>Chasse du 1er au 7 oct. Boss <b>Ténèbres</b> : <b>Kyouka (Lumière)</b> a l'avantage d'élément. Vise au moins le niveau 10.</td><td>Niveaux 1 à 10 = 30 Draw Tickets + 1 Tear. Voir l'horloge pour le compte à rebours exact.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">Guild Raid</b></td><td>Si tu es en guilde, attaque avant la clôture (mercredi 15:00 UTC, voir l'horloge).</td><td>Deeds pour le Guild Shop (Tear, Sparks, 10 tickets par mois).</td></tr>
+      <tr><td><span class="c c-stop">Stop</span></td><td><b class="name">Bannières collab</b></td><td>Plus aucun pull sur Tenka ou Ren.</td><td>Notées « Situationnel ». Tes Draw Points collab deviendront du Powder of Hope.</td></tr>
+      <tr><td><span class="c c-opt">Option</span></td><td><b class="name">Medical Club Teresse</b></td><td>Avec un stock de tickets rouges : vise +1 avant le 7 oct. Garde toujours 1 000 Dia.</td><td>Buffer universel (ATK + MATK + soin), « Must ». Sinon elle reste dans les remplacements du 12-Pick.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">6 freebies permanents</b></td><td>Missions de l'Event tab et events anniversaire réintroduits (liste en <a href="#roster">04</a>).</td><td>Copies gratuites : on claim tout, on investit seulement sur Eclipse, Dalvi, puis Beach Vacation Morpeah.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">Tickets violets</b></td><td>12-Pick uniquement.</td><td>C'est leur usage prévu.</td></tr>
+      <tr><td><span class="c c-wait">Attends</span></td><td><b class="name">Tickets rouges</b></td><td>Stock pour une rate-up « Must ».</td><td>Plus flexibles que les tickets violets.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">1 000 Dia</b></td><td>Réserve intouchable pour le Season Pass premium.</td><td>Le pass rembourse largement son prix.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">Tâche Awakening du Guide Pass</b></td><td>Engraving 3 nœuds + Awakening sur <b>Nebris</b>.</td><td>Obligatoire pour finir le Guide Pass (les 12 selectors). Le Compendium recommande Nebris.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">Last Night</b></td><td>Un combat, même moyen.</td><td>Active les rewards quotidiens liés à ton meilleur score.</td></tr>
+      <tr><td><span class="c c-do">Fais</span></td><td><b class="name">Free pull</b></td><td>Le pull gratuit quotidien de chaque bannière.</td><td>Gratuit.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Ta team actuelle, garde-la</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Ordre</th><th>Perso</th><th>Niveau</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><b class="name">Priest of Vitality Arines +1</b> <span class="el el-lumiere">Lumière</span></td><td>40-60 si elle meurt</td><td>Buff ATK + Crit (3 SP, 2 à +3)</td></tr>
+      <tr><td class="num">2</td><td><b class="name">Kind Student Samay</b> <span class="el el-tenebres">Ténèbres</span></td><td>40-60 si elle meurt</td><td>Buff ATK + MATK + soin (2 SP, 1 à +3)</td></tr>
+      <tr><td class="num">3</td><td><b class="name">Eternal Chains Kyouka</b> <span class="el el-lumiere">Lumière</span> <span class="t t-phys">Phys</span></td><td>80 (fait)</td><td>Carry, AoE moyenne (4 SP à +1)</td></tr>
+      <tr><td class="num">4</td><td><b class="name">New Hire Nebris</b> <span class="el el-vent">Vent</span> <span class="t t-phys">Phys</span></td><td>40-60</td><td>Second DPS (3 SP à +1)</td></tr>
+      <tr><td class="num">5</td><td><b class="name">Stray Cat Rou</b> <span class="el el-tenebres">Ténèbres</span> <span class="t t-phys">Phys</span> ou flex</td><td>1-40</td><td>DPS budget. Wiggle pour le burst, Rigenette pour le tir concentré</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 02 PLAN DE COMPTE -->
+<section class="sec" id="plan-compte" data-s>
+  <div class="sec-head"><div class="cart">02</div><div><p class="eyebrow">Stratégie</p><h2>Plan de compte : qui, combien, avec quoi</h2><p class="lede">Qui monter maintenant, qui viser plus tard, combien de teams construire, et où va chaque ressource et chaque Dia.</p></div></div>
+
+  <h3><span class="n">2.1</span>Qui monter, dans quel ordre</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Palier</th><th>Perso</th><th>Rôle</th><th>Niveau cible</th><th>Pourquoi</th></tr></thead>
+    <tbody>
+      <tr><td><span class="c c-do">Maintenant</span></td><td><b class="name">Dream Bride Eclipse</b> <span class="el el-tenebres">Ténèbres</span> <span class="t t-mag">Mag</span></td><td>Carry magique, grande AoE</td><td>80, puis 100</td><td>+5 gratuit, buff MATK sur elle, 4 SP à +1. Ton premier carry durable.</td></tr>
+      <tr><td><span class="c c-do">Maintenant</span></td><td><b class="name">Summer Vacation Dalvi</b> <span class="el el-vent">Vent</span> <span class="t t-mag">Mag</span></td><td>Carry magique, grande AoE + DoT</td><td>80, puis 100</td><td>+5 gratuit, 4 hits + Bleed. Deuxième carry de la team magique.</td></tr>
+      <tr><td><span class="c c-do">Garde</span></td><td><b class="name">Eternal Chains Kyouka</b> <span class="el el-lumiere">Lumière</span> <span class="t t-phys">Phys</span></td><td>Carry phys provisoire</td><td>80 (fait)</td><td>Pas de Slimes en plus tant qu'elle clear. Burst avec les Sparks collab.</td></tr>
+      <tr><td><span class="c c-wait">Survie</span></td><td><b class="name">Arines · Samay</b></td><td>Buffers</td><td>40-60, puis 80 quand les combats tapent fort</td><td>Les supports ne tapent pas : ils doivent juste survivre.</td></tr>
+      <tr><td><span class="c c-opt">Ensuite</span></td><td><b class="name">B-Rank Idol Helena</b> (selector)</td><td>Cœur magique</td><td>60-80</td><td>Buff MATK + Crit Rate + soin. Premier selector à prendre.</td></tr>
+      <tr><td><span class="c c-opt">Ensuite</span></td><td><b class="name">Adventurer of the Unknown Diana</b> (Pub SP10 / selector)</td><td>Buffer d'élément universel</td><td>60-80</td><td>Sert aux deux branches, obligatoire en Tower of Desire 151+.</td></tr>
+      <tr><td><span class="c c-opt">Ensuite</span></td><td><b class="name">Homunculus Lathel</b> (selector)</td><td>Cœur physique</td><td>60</td><td>Buff ATK à 2 SP (1 à +3). Remplace Rou dans la team phys.</td></tr>
+      <tr><td><span class="c c-opt">Ensuite</span></td><td><b class="name">Beach Vacation Morpeah</b> <span class="el el-eau">Eau</span> <span class="t t-mag">Mag</span></td><td>Carry magique de rechange</td><td>60-80</td><td>Gratuite (Event tab). Contre les ennemis Feu.</td></tr>
+      <tr><td><span class="c c-opt">Ensuite</span></td><td><b class="name">The Curse Celia</b> <span class="el el-tenebres">Ténèbres</span> <span class="t t-mag">Mag</span></td><td>Chainer de boss</td><td>60</td><td>7 hits, baisse l'ATK ennemie. Sert en boss, FH, Last Night.</td></tr>
+      <tr><td><span class="c c-neu">Plus tard</span></td><td><b class="name">New Hire Nebris</b> <span class="el el-vent">Vent</span> <span class="t t-phys">Phys</span></td><td>DPS phys endgame</td><td>80+ quand tu as ses autres costumes</td><td>S-tier PvE avec 10-12 buffs, très fort en Last Night. Awakening via le Guide Pass.</td></tr>
+      <tr><td><span class="c c-neu">Plus tard</span></td><td><b class="name">Frozen Queen Wilhelmina</b> <span class="el el-eau">Eau</span> <span class="t t-phys">Phys</span></td><td>Chainer phys</td><td>60+ pour le Fiend Hunter</td><td>6 hits, dégâts d'élément sur elle.</td></tr>
+      <tr><td><span class="c c-neu">Plus tard</span></td><td><b class="name">Robin Hood Zenith · T&amp;F Levia · Game Club Rafina · New Hire Seir</b></td><td>Chain, Vulnerability, tank-buffer</td><td>40-60</td><td>Pièces de boss et de Fiend Hunter, via les selectors.</td></tr>
+      <tr><td><span class="c c-neu">Outils</span></td><td><b class="name">Little Hunter Rigenette +5</b></td><td>Tir concentré</td><td>Bas</td><td>À +5 son skill coûte <b>1 SP</b> : force les ennemis à viser une cible, pratique en mono-cible.</td></tr>
+      <tr><td><span class="c c-neu">Outils</span></td><td><b class="name">Seductive Wings Lucrezia</b> <span class="t t-mag">Mag</span></td><td>Batterie de SP + silence</td><td>Bas</td><td>Flex utile dans la team magique tant qu'elle manque de SP.</td></tr>
+      <tr><td><span class="c c-neu">Outils</span></td><td><b class="name">Stray Cat Rou · Wiggle · Herb Tracker Lathel</b></td><td>DPS budget, burst</td><td>1-40</td><td>Seulement si un combat précis les demande.</td></tr>
+      <tr><td><span class="c c-stop">Jamais</span></td><td><b class="name">Gynt, Remnunt, Julie, Emma, Cynthia, Ingrid, Beatrice, Lydia, Bernie, Andrew, Jayden</b></td><td>3★ et 4★</td><td>Minimum</td><td>Seulement pour une mission. Capacités de terrain utiles, combat non.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="n">2.2</span>Focus long terme : ta liste de cibles</h3>
+  <p class="prose">Le jeu tourne autour des supports : on les utilise partout, alors qu'un DPS dépend de l'élément. Voici les pièces à viser, dans l'ordre, avec la source la moins chère.</p>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Ordre</th><th>Cible</th><th>Rôle</th><th>Source la moins chère</th><th>Objectif</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><b class="name">B-Rank Idol Helena</b></td><td>Buffer magique</td><td>Selectors (+1), puis 12-Pick</td><td>+3 (-1 SP), puis +5</td></tr>
+      <tr><td class="num">2</td><td><b class="name">Adventurer of the Unknown Diana</b></td><td>Buffer d'élément universel</td><td>Pub (Story Pack 10) + selectors + 12-Pick</td><td>+4 / +5</td></tr>
+      <tr><td class="num">3</td><td><b class="name">Homunculus Lathel</b></td><td>Buffer physique</td><td>Selectors + 12-Pick</td><td>+5</td></tr>
+      <tr><td class="num">4</td><td><b class="name">Queen of Gluttis Granadair</b></td><td>Buffer MATK + SP</td><td>Pub aléatoire + 12-Pick</td><td>+5</td></tr>
+      <tr><td class="num">5</td><td><b class="name">Dark Saintess Liberta</b></td><td>Buffer phys + SP</td><td>Pub (Story Pack 15) + 12-Pick</td><td>+5</td></tr>
+      <tr><td class="num">6</td><td><b class="name">Shrine Maiden Granadair · Onsen Manager Liberta</b></td><td>Augmentation</td><td>12-Pick</td><td>+5</td></tr>
+      <tr><td class="num">7</td><td><b class="name">Pure White Blessing Refithea</b></td><td>Élément + double les chains</td><td>12-Pick (Property ticket Lumière en bonus)</td><td>+1 à +5</td></tr>
+      <tr><td class="num">8</td><td><b class="name">Robin Hood Zenith</b></td><td>Chainer + Vulnerability</td><td>Selector + 12-Pick</td><td>+3 (skill gratuit)</td></tr>
+      <tr><td class="num">9</td><td><b class="name">Medical Club Teresse · Beachside Angel Teresse</b></td><td>Buffer universel / Augmentation</td><td>Bannières (et 12-Pick pour Medical Club)</td><td>+1</td></tr>
+      <tr><td class="num">10</td><td><b class="name">Sunny Inn Hand Helena</b></td><td>Augmentation magique</td><td>12-Pick (remplacement)</td><td>+1 à +3</td></tr>
+      <tr><td class="num">11</td><td><b class="name">Masquerade Bunny Celia</b></td><td>Chainer FH/GR (limitée)</td><td>Bannière limitée quand elle revient</td><td>+1</td></tr>
+      <tr><td class="num">12</td><td><b class="name">Laid-back Lifeguard + Labyrinth Gatekeeper Nebris</b></td><td>Rotation de Nebris</td><td>Bannières</td><td>+1</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="n">2.3</span>Combien de teams construire</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Mode</th><th>Teams</th><th>Taille</th><th>Pour toi aujourd'hui</th><th>Objectif</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Story, events, Desire 1-150</b></td><td class="num">1</td><td>5</td><td>Team Kyouka</td><td>Team magique en principal</td></tr>
+      <tr><td><b class="name">Tower of Wrath</b></td><td class="num">1</td><td>5 magiques</td><td>Pas prête</td><td>Eclipse, Dalvi, Morpeah + Helena, Samay</td></tr>
+      <tr><td><b class="name">Tower of Jealousy</b></td><td class="num">1</td><td>5 physiques</td><td>Team Kyouka</td><td>Kyouka, Nebris, Wilhelmina + Arines, Lathel</td></tr>
+      <tr><td><b class="name">Tower of Desire 151+</b></td><td class="num">1 par élément</td><td>5</td><td>Plus tard</td><td>Diana + DPS du bon élément</td></tr>
+      <tr><td><b class="name">Fiend Hunter</b></td><td class="num">1 → 3</td><td>5 chacune</td><td>1 team</td><td>2 teams dans 1-2 mois, 3 en endgame</td></tr>
+      <tr><td><b class="name">Guild Raid</b></td><td class="num">1</td><td>7</td><td>Ta meilleure team + 2</td><td>Chainers + supports</td></tr>
+      <tr><td><b class="name">Last Night</b></td><td class="num">1</td><td>20 costumes</td><td>Tout ton roster</td><td>Buffers → chainers → DPS</td></tr>
+      <tr><td><b class="name">Golden Colosseum</b></td><td class="num">1</td><td>3 à 11 costumes selon la saison</td><td>Copie une team qui utilise tes costumes</td><td>Sans gear : copies et Potential comptent</td></tr>
+      <tr><td><b class="name">Mirror Wars</b></td><td class="num">1 + 1</td><td>Attaque + défense</td><td>Team pas chère en SP</td><td>Assez pour garder Bronze ou plus</td></tr>
+      <tr><td><b class="name">Tower of Salvation</b></td><td>Draft</td><td>5</td><td>Costumes proposés</td><td>Pas de team à préparer</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note note-gold"><b>La réponse courte</b><p>Deux teams complètes, une physique et une magique, soit une dizaine de persos vraiment investis d'ici 3 mois. Les buffers universels (Samay, Diana, Teresse) servent aux deux. La troisième team n'a de sens qu'au Fiend Hunter haut niveau.</p></div>
+
+  <h3><span class="n">2.4</span>Dia et pulls : le budget</h3>
+  <div class="grid2">
+    <div class="card"><h4>Les règles</h4><ul>
+      <li>1 000 Dia de côté à chaque saison de 28 jours pour le Season Pass.</li>
+      <li>Pull seulement sur une bannière « Must », et de préférence un support.</li>
+      <li>Arrête-toi au breakpoint (souvent +1, +3 pour Helena et Zenith).</li>
+      <li>Jamais de Dia sur : refresh du Pub, cocktails, tentatives d'event, gear.</li>
+      <li>Garde une réserve pour l'anniversaire : juin et décembre ont les plus grosses périodes de pulls gratuits (le 2,5 anniversaire en offrait plus de 500).</li>
+    </ul></div>
+    <div class="card"><h4>La mathématique du gacha</h4><ul>
+      <li>1 pull = 1 ticket rouge = 200 Dia.</li>
+      <li>5★ à 3 % : un 5★ tous les ~33 pulls en moyenne.</li>
+      <li>Featured à 1,5 % : ~67 pulls en moyenne pour le costume voulu.</li>
+      <li>Pity : un 5★ garanti au 100e pull sans 5★ (pas forcément le featured).</li>
+      <li>200 Draw Points = le featured garanti. Pire cas : 200 pulls, soit 40 000 Dia.</li>
+    </ul></div>
+  </div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Source</th><th>Dia</th><th>Tickets</th><th>Rythme</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Mirror Wars</b></td><td>400 (Bronze) à 800 (Dia I), jusqu'à 2 000 au sommet</td><td>-</td><td>Chaque semaine</td></tr>
+      <tr><td><b class="name">Season Event</b></td><td>600 (6 missions) + clears Normal + histoire</td><td>15 au shop</td><td>Toutes les 2 semaines</td></tr>
+      <tr><td><b class="name">Fiend Hunter</b></td><td>-</td><td>30 (niveaux 1-10) + classement</td><td>Toutes les 2 semaines</td></tr>
+      <tr><td><b class="name">Tower of Desire</b></td><td>6 250 au total</td><td>250 au total</td><td>Une fois</td></tr>
+      <tr><td><b class="name">Tower of Wrath + Jealousy</b></td><td>5 000 au total</td><td>300 + 4 Property tickets</td><td>Une fois</td></tr>
+      <tr><td><b class="name">Guild Shop · Golden Colosseum Shop</b></td><td>-</td><td>10 + 10</td><td>Chaque mois</td></tr>
+      <tr><td><b class="name">Rapport</b></td><td>100 par costume (15 Talks) + épisodes d'histoire</td><td>-</td><td>Une fois par costume</td></tr>
+      <tr><td><b class="name">Missions, succès, coffres de Story, pass</b></td><td>Régulier</td><td>Régulier</td><td>Quotidien / hebdo</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="n">2.5</span>Chaque ressource : sur quoi la dépenser</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Ressource</th><th>Dépense sur</th><th>Garde pour</th><th>Jamais</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Dia</b></td><td>Season Pass (1 000), bannières « Must »</td><td>Anniversaires, supports</td><td>Refresh Pub, cocktails, tentatives, gear</td></tr>
+      <tr><td><b class="name">Draw Ticket (rouge)</b></td><td>Rate-up d'un support</td><td>Bannières « Must »</td><td>Collab non voulue</td></tr>
+      <tr><td><b class="name">Selective Draw Ticket (violet)</b></td><td>12-Pick</td><td>-</td><td>Autre chose</td></tr>
+      <tr><td><b class="name">Recommended 5★ Selective</b></td><td>Helena +1, Diana, Lathel, Seir, Levia, Zenith, Rafina</td><td>-</td><td>Un doublon</td></tr>
+      <tr><td><b class="name">Property Selective Ticket</b></td><td>Lumière (Refithea) tant qu'elle manque</td><td>-</td><td>Un élément au hasard</td></tr>
+      <tr><td><b class="name">Golden Thread</b></td><td>Unidupe (1 600) puis Sparks (275)</td><td>Un breakpoint de support</td><td>Gifts en early</td></tr>
+      <tr><td><b class="name">Powder of Hope</b></td><td>Un costume utile (200)</td><td>Le prochain support featured</td><td>Acheter parce que tu as 200</td></tr>
+      <tr><td><b class="name">Tear of Goddess</b></td><td>Nœud SP / cooldown d'un support</td><td>Helena, Diana, Liberta...</td><td>Kyouka, un DPS au hasard</td></tr>
+      <tr><td><b class="name">Spark of Rampage</b></td><td>Burst de Diana, Helena, Onsen Liberta, H.Lathel B1</td><td>Stock</td><td>Un costume au hasard</td></tr>
+      <tr><td><b class="name">Spark of the Otherworld</b></td><td>Burst de Kyouka</td><td>-</td><td>Les laisser dormir</td></tr>
+      <tr><td><b class="name">Crystals d'élément</b></td><td>Petits nœuds de Potential de tes carries</td><td>Grands nœuds (500)</td><td>-</td></tr>
+      <tr><td><b class="name">Slimes</b></td><td>Eclipse, Dalvi</td><td>Le prochain carry</td><td>Les 3★ DPS</td></tr>
+      <tr><td><b class="name">Gold</b></td><td>Niveaux, gear, Potential</td><td>Burst (1,5 M par palier)</td><td>Territory, déco</td></tr>
+      <tr><td><b class="name">Rank-Up Stars</b></td><td>Paliers de niveau des carries</td><td>-</td><td>Persos en pause</td></tr>
+      <tr><td><b class="name">Ability Books</b></td><td>Crafting (Fred), puis Alchemy</td><td>-</td><td>Deux crafteurs</td></tr>
+      <tr><td><b class="name">Ability Pills</b></td><td>Craft, Alchemy, capacités de terrain</td><td>-</td><td>-</td></tr>
+      <tr><td><b class="name">Cooked Rice · Torches</b></td><td>Tout, chaque jour</td><td>Le Rice « payant »</td><td>Laisser perdre</td></tr>
+      <tr><td><b class="name">Ancient Crystal</b></td><td>Craft UR (arme, gants, Venomous Touch)</td><td>-</td><td>Craft SR</td></tr>
+      <tr><td><b class="name">Refining Powder</b></td><td>Monter et raffiner le gear du carry</td><td>-</td><td>Refine au-delà de ~18</td></tr>
+      <tr><td><b class="name">Refining Stones / Crystals</b></td><td>Reroll des substats du carry</td><td>-</td><td>Gear tier I ou II</td></tr>
+      <tr><td><b class="name">Engraving Scrolls · Essences · Elixirs</b></td><td>Guide Pass (Nebris), puis ton carry principal</td><td>Stock</td><td>Les supports</td></tr>
+      <tr><td><b class="name">Recruitment Contracts</b></td><td>Diana, Liberta, Granadair, costume en bannière</td><td>1 contrat 5★ pour Diana</td><td>3★ et 4★</td></tr>
+      <tr><td><b class="name">Devil Coin</b></td><td>Engraving Scrolls, puis Essences</td><td>-</td><td>-</td></tr>
+      <tr><td><b class="name">Medals (Mirror Wars)</b></td><td>Costume featured s'il est utile</td><td>-</td><td>-</td></tr>
+      <tr><td><b class="name">Aurum Coin</b></td><td>Property tickets, Sparks, 10 tickets</td><td>-</td><td>-</td></tr>
+      <tr><td><b class="name">Deeds (guilde)</b></td><td>Tear, Sparks, 10 tickets, Elixirs</td><td>-</td><td>-</td></tr>
+      <tr><td><b class="name">Alea Chips</b></td><td>Tear, puis tout</td><td>-</td><td>Les laisser expirer</td></tr>
+      <tr><td><b class="name">Refinement Remnants</b></td><td>Sparks ×200</td><td>Tickets de score 23/24 (endgame)</td><td>-</td></tr>
+      <tr><td><b class="name">Lucky Silver Coins</b></td><td>Gold, Refining Powder, Deco</td><td>-</td><td>-</td></tr>
+      <tr><td><b class="name">Deco Coins · Local Points</b></td><td>My Room, Territory</td><td>-</td><td>Rien d'important</td></tr>
+      <tr><td><b class="name">Monnaie d'event</b></td><td>Shop dans l'ordre (section 11)</td><td>-</td><td>Gear SR</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3><span class="n">2.6</span>L'ordre d'investissement</h3>
+  <ol class="list prose">
+    <li>Claim tout ce qui est gratuit (freebies, codes, missions, pass, events).</li>
+    <li>Niveaux du carry (Slimes), puis gear offensif (arme, gants, Venomous Touch).</li>
+    <li>Supports juste assez montés pour survivre.</li>
+    <li>Copies des supports : selectors, 12-Pick, Pub, unidupe.</li>
+    <li>Potential des supports : nœuds de SP et de cooldown.</li>
+    <li>Burst des supports (Diana, Helena, Liberta).</li>
+    <li>Engraving et Awakening du DPS principal.</li>
+    <li>Troisième team, gear défensif, refine de haut niveau.</li>
+  </ol>
+</section>
+
+<!-- 03 CORRECTIONS -->
+<section class="sec" id="corrections" data-s>
+  <div class="sec-head"><div class="cart">03</div><div><p class="eyebrow">Audit</p><h2>Ce qui change depuis la V8</h2><p class="lede">Chaque correction a été revérifiée sur les sources de septembre 2026.</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Sujet</th><th>V8</th><th>Maintenant</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Tower of Wrath / Jealousy</b></td><td>Wrath « physique », Jealousy « magique »</td><td><span class="c c-stop">Inversé</span> <b>Wrath = team MAGIQUE</b>, <b>Jealousy = team PHYSIQUE</b>.</td></tr>
+      <tr><td><b class="name">Morpeah gratuit</b></td><td>« Ambiguïté de nom »</td><td>Deux costumes : <b>Beach Vacation</b> (missions de l'Event tab) et <b>Daydream Bunny</b> (+5, event du 1,5 anniversaire). Prends les deux.</td></tr>
+      <tr><td><b class="name">Sparks collab</b></td><td>« Spark of the Overworld »</td><td>Nom exact : <b>Spark of the Otherworld</b>. Sur Kyouka.</td></tr>
+      <tr><td><b class="name">Éléments</b></td><td>Non précisés</td><td>Stray Cat Rou est <b>Ténèbres</b>, Arines Lumière, Samay Ténèbres, Kyouka Lumière.</td></tr>
+      <tr><td><b class="name">Eclipse / Dalvi</b></td><td>60 → 80 → « davantage »</td><td>Objectif final <b>niveau 100</b>. Ce sont deux carries à grande AoE.</td></tr>
+      <tr><td><b class="name">Awakening</b></td><td>« Plus tard »</td><td>Sauf la tâche du Guide Pass : sur Nebris.</td></tr>
+      <tr><td><b class="name">Friend Borrow</b></td><td>« Selon le mode »</td><td>1 emprunt par combat, 3 par ami et par jour.</td></tr>
+      <tr><td><b class="name">Mirror Wars</b></td><td>« Objectif monnaie »</td><td>Aussi 400 à 2 000 Dia par semaine selon le rang.</td></tr>
+      <tr><td><b class="name">Last Night</b></td><td>« Fais un score »</td><td>Palier cible 110 M = 5 Ancient Crystals + 5 Elixirs par jour.</td></tr>
+      <tr><td><b class="name">Evil Castle</b></td><td>« Rewards quotidiens »</td><td>À récupérer en parlant au familier qui te suit. Desire : 1 ticket par étage.</td></tr>
+      <tr><td><b class="name">Pub</b></td><td>« Peut rendre des tickets »</td><td>Costume de Pub recruté pendant sa bannière = 10 Draw Tickets.</td></tr>
+      <tr><td><b class="name">Timers</b></td><td>Absents</td><td>Horloge automatique (section 00) et routine qui se remet à zéro toute seule.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 04 ROSTER -->
+<section class="sec" id="roster" data-s>
+  <div class="sec-head"><div class="cart">04</div><div><p class="eyebrow">Roster</p><h2>Ton roster, perso par perso</h2><p class="lede">Récupérer un +5 gratuit ne veut pas dire investir dessus. Les fiches complètes de chaque costume sont en <a href="#costumes">15</a>.</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Perso</th><th>Élément · type</th><th>Décision</th><th>Capacité de terrain</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Dream Bride Eclipse</b></td><td><span class="el el-tenebres">Ténèbres</span> <span class="t t-mag">Mag</span></td><td><span class="c c-do">Priorité 1</span></td><td>Magic Circle (téléport)</td><td>+5 gratuit. Idéale pour les points « 1 M de dégâts » de la Tower of Pride.</td></tr>
+      <tr><td><b class="name">Summer Vacation Dalvi</b></td><td><span class="el el-vent">Vent</span> <span class="t t-mag">Mag</span></td><td><span class="c c-do">Priorité 2</span></td><td>-</td><td>+5 gratuit. 4 hits + Bleed.</td></tr>
+      <tr><td><b class="name">Beach Vacation Morpeah</b></td><td><span class="el el-eau">Eau</span> <span class="t t-mag">Mag</span></td><td><span class="c c-do">Priorité 3</span></td><td>-</td><td>Missions de l'Event tab. Préemptive, invocations.</td></tr>
+      <tr><td><b class="name">Daydream Bunny Morpeah</b></td><td><span class="el el-eau">Eau</span> <span class="t t-mag">Mag</span></td><td><span class="c c-do">Claim +5</span></td><td>-</td><td>Invocations qui explosent, -30 % MRES ennemie.</td></tr>
+      <tr><td><b class="name">Eternal Chains Kyouka</b></td><td><span class="el el-lumiere">Lumière</span> <span class="t t-phys">Phys</span></td><td><span class="c c-do">Garde 80</span></td><td>-</td><td>Carry provisoire, fort contre Ténèbres.</td></tr>
+      <tr><td><b class="name">New Hire Nebris</b></td><td><span class="el el-vent">Vent</span> <span class="t t-phys">Phys</span></td><td><span class="c c-wait">Garde 40-60</span></td><td>-</td><td>Très forte avec ses autres costumes et 10-12 buffs.</td></tr>
+      <tr><td><b class="name">Frozen Queen Wilhelmina</b></td><td><span class="el el-eau">Eau</span> <span class="t t-phys">Phys</span></td><td><span class="c c-do">Claim +5</span> <span class="c c-wait">Pause</span></td><td>-</td><td>Chainer phys (6 hits).</td></tr>
+      <tr><td><b class="name">The Curse Celia</b></td><td><span class="el el-tenebres">Ténèbres</span> <span class="t t-mag">Mag</span></td><td><span class="c c-do">Garde</span></td><td>Absorption</td><td>Chainer late-game. +3 = -1 SP.</td></tr>
+      <tr><td><b class="name">Priest of Vitality Arines +1</b></td><td><span class="el el-lumiere">Lumière</span></td><td><span class="c c-do">Survie</span></td><td>-</td><td>ATK + Crit.</td></tr>
+      <tr><td><b class="name">Kind Student Samay</b></td><td><span class="el el-tenebres">Ténèbres</span></td><td><span class="c c-do">Survie</span></td><td>Revival</td><td>Buffe ATK et MATK.</td></tr>
+      <tr><td><b class="name">Stray Cat Rou</b></td><td><span class="el el-tenebres">Ténèbres</span> <span class="t t-phys">Phys</span></td><td><span class="c c-neu">Léger</span></td><td>Stealth</td><td>DPS budget, Crit Rate sur elle.</td></tr>
+      <tr><td><b class="name">Little Hunter Rigenette +5</b></td><td><span class="el el-vent">Vent</span> <span class="t t-phys">Phys</span></td><td><span class="c c-neu">Outil</span></td><td>Steal (hebdo)</td><td>Tir concentré à 1 SP.</td></tr>
+      <tr><td><b class="name">Seductive Wings Lucrezia</b></td><td><span class="el el-tenebres">Ténèbres</span> <span class="t t-mag">Mag</span></td><td><span class="c c-neu">Outil</span></td><td>Magic Circle</td><td>Batterie de SP + silence.</td></tr>
+      <tr><td><b class="name">Herb Tracker Lathel</b></td><td><span class="el el-feu">Feu</span> <span class="t t-phys">Phys</span></td><td><span class="c c-neu">Garde</span></td><td>Search</td><td>Search + Absorption de Celia pour les Finds.</td></tr>
+      <tr><td><b class="name">Fred · Layla</b></td><td>-</td><td><span class="c c-do">Crafteur</span></td><td>Craft Gear</td><td>Même compétence : n'en monte qu'un (Fred).</td></tr>
+      <tr><td><b class="name">Wiggle +2</b></td><td><span class="el el-feu">Feu</span> <span class="t t-phys">Phys</span></td><td><span class="c c-neu">Outil</span></td><td>Immortal</td><td>Burst pas cher.</td></tr>
+      <tr><td><b class="name">Jayden · Bernie · Andrew</b></td><td>-</td><td><span class="c c-neu">Pause</span></td><td>Search · Steal · Steal</td><td>Utiles sur la carte.</td></tr>
+      <tr><td><b class="name">Gynt · Remnunt</b></td><td>-</td><td><span class="c c-neu">Pause</span></td><td>-</td><td>Baisse d'ATK, utile seulement en Death Time.</td></tr>
+      <tr><td><b class="name">Julie · Emma · Cynthia · Ingrid · Beatrice · Lydia</b></td><td>-</td><td><span class="c c-neu">Pause</span></td><td>-</td><td>Aucun rare.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Quel carry selon l'élément ennemi</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Ennemis</th><th>Il te faut</th><th>Dans ton roster</th></tr></thead>
+    <tbody>
+      <tr><td><span class="el el-feu">Feu</span></td><td><span class="el el-eau">Eau</span></td><td>Beach Vacation Morpeah <span class="t t-mag">Mag</span> · Frozen Queen Wilhelmina <span class="t t-phys">Phys</span></td></tr>
+      <tr><td><span class="el el-eau">Eau</span></td><td><span class="el el-vent">Vent</span></td><td>Summer Vacation Dalvi <span class="t t-mag">Mag</span> · New Hire Nebris <span class="t t-phys">Phys</span></td></tr>
+      <tr><td><span class="el el-vent">Vent</span></td><td><span class="el el-feu">Feu</span></td><td>Aucun carry Feu investi : garde ton carry le plus fort ou emprunte</td></tr>
+      <tr><td><span class="el el-lumiere">Lumière</span></td><td><span class="el el-tenebres">Ténèbres</span></td><td>Dream Bride Eclipse · The Curse Celia · Stray Cat Rou</td></tr>
+      <tr><td><span class="el el-tenebres">Ténèbres</span></td><td><span class="el el-lumiere">Lumière</span></td><td>Kyouka <span class="t t-phys">Phys</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note note-gold"><b>Règle d'or</b><p>Un carry +5 niveau 80 hors élément bat souvent un carry niveau 40 du bon élément. Change de carry pour l'élément seulement quand les deux sont investis.</p></div>
+</section>
+
+<!-- 05 TEAMS -->
+<section class="sec" id="teams" data-s>
+  <div class="sec-head"><div class="cart">05</div><div><p class="eyebrow">Teams</p><h2>Construire tes équipes</h2><p class="lede">Contenu général : 5 persos sur une grille 3×4. Guild Raid : 7 persos sur 5×5. Golden Colosseum : variable.</p></div></div>
+  <h3>Les 8 règles d'une bonne team</h3>
+  <ol class="list prose">
+    <li><b>Un seul type de dégâts.</b> Buffers ATK (Arines, Homunculus Lathel) = physique, buffers MATK (Helena, Elpis) = magique, Samay, Diana et Medical Club Teresse = les deux.</li>
+    <li><b>3 supports + 2 DPS</b>, ou 3 supports + 1 carry + 1 flex (knockback, soin, chain).</li>
+    <li><b>Supports avant DPS</b> dans l'ordre d'action.</li>
+    <li><b>Des buffs de catégories différentes</b> : additifs dans une catégorie, multiplicatifs entre catégories.</li>
+    <li><b>AoE contre les vagues, nuke contre les boss.</b></li>
+    <li><b>Finir au tour 1</b>, au pire au tour 3.</li>
+    <li><b>Assez de SP</b> pour tout lancer au tour 1.</li>
+    <li><b>DPS au centre</b> : la ligne et la colonne du milieu sont les plus visées.</li>
+  </ol>
+  <div class="note note-pro"><b>Dégâts trop faibles ?</b><p>Ajoute une catégorie de buff différente avant de remplacer ton carry. 1 buff ATK + 1 Vulnerability + des chains battent 3 buffs ATK.</p></div>
+  <h3>Team physique actuelle</h3>
+  <p class="prose">Arines → Samay → Kyouka → Nebris → Rou (ou Wiggle / Rigenette). Plus tard, Homunculus Lathel remplace Rou.</p>
+  <h3>Branche magique à construire</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Slot</th><th>Version early</th><th>Après selectors / Pub</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>Samay</td><td>B-Rank Idol Helena</td></tr>
+      <tr><td class="num">2</td><td>Lucrezia (SP) ou Elpis</td><td>Elpis ou Queen of Gluttis Granadair</td></tr>
+      <tr><td class="num">3</td><td>Flex / Celia sur boss</td><td>Samay, ou Diana contre Lumière/Feu</td></tr>
+      <tr><td class="num">4</td><td>Dream Bride Eclipse</td><td>Eclipse, ou Morpeah contre Feu</td></tr>
+      <tr><td class="num">5</td><td>Summer Vacation Dalvi</td><td>Dalvi</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Mono-cible (boss seul)</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Slot</th><th>Recommandé</th><th>Substituts</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>Priest of Vitality Arines</td><td>Dark Saintess Liberta si +2 ou plus</td></tr>
+      <tr><td class="num">2</td><td>Homunculus Lathel</td><td>Dark Saintess Liberta</td></tr>
+      <tr><td class="num">3</td><td>Robin Hood Zenith</td><td>Little Hunter Rigenette (tu l'as +5), Apostle Morpeah</td></tr>
+      <tr><td class="num">4</td><td>Kind Student Samay</td><td>Diana contre Ténèbres, Celia, Wilhelmina, Night of Death Mamonir</td></tr>
+      <tr><td class="num">5</td><td>Comeback Idol Ventana <b>empruntée</b></td><td>Un gros DPS mono-cible d'ami</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note note-pro"><b>Emprunter un perso</b><p>Demande en ami quelqu'un qui a le perso, entre en combat, <b>Replace</b> puis l'icône de main en haut à droite. 1 emprunt par combat, 3 par ami et par jour. Boss seul : Zenith ou Ventana. Boss avec mobs : Sacred Justia ou Bunny Loen.</p></div>
+  <h3>Boss, chainer et Celia</h3>
+  <div class="note note-gold"><b>Le calcul Celia</b><p>Chaque hit = 1 chain = +10 % aux hits suivants du tour. The Curse : 7 hits = 7 chains. Avec un Chain Reinforcement (Masquerade Bunny Celia) : 14. Avec deux (+ Pure White Blessing Refithea) : 21. Elle joue juste avant le carry. En Story, quand tout meurt au tour 1, elle coûte du SP pour rien.</p></div>
+  <h3>Modes à règles spéciales</h3>
+  <div class="grid2">
+    <div class="card"><h4>Tower of Wrath</h4><p>Ennemis <b>immunisés au physique</b> : team magique. Debuffs et knockbacks physiques marchent quand même, sans dégâts.</p></div>
+    <div class="card"><h4>Tower of Jealousy</h4><p>Ennemis <b>immunisés au magique</b> : team physique.</p></div>
+    <div class="card"><h4>Mirror Wars</h4><p>Attaque 5 SP, défense 6 SP, +6 par tour. Team pas chère. Certains costumes jouent « au tour 0 » en défense.</p></div>
+    <div class="card"><h4>Golden Colosseum</h4><p>Des <b>costumes</b>, pas des persos. <b>Le gear ne compte pas.</b> SP infini.</p></div>
+    <div class="card"><h4>Last Night</h4><p>20 costumes en un tour : buffers → chainers → DPS.</p></div>
+    <div class="card"><h4>Fiend Hunter</h4><p>Jusqu'à 3 teams de 5, jouées dans l'ordre. Une Team 1 solide d'abord.</p></div>
+  </div>
+  <h3>Je bloque sur un combat</h3>
+  <ol class="list prose">
+    <li><b>Placement</b> : les lignes rouges montrent ce que l'ennemi va frapper, sors ton DPS de là.</li>
+    <li><b>Ciblage</b> : Very Front vise le premier de la colonne, Vault le deuxième.</li>
+    <li><b>Ordre</b> : supports d'abord, knockback avant l'AoE.</li>
+    <li><b>SP</b> : tout ce que tu veux lancer au tour 1 doit tenir dans ta réserve.</li>
+    <li><b>Élément</b> : change de carry seulement s'il est investi.</li>
+    <li><b>Emprunt</b> avant de monter 5 persos pour un seul combat.</li>
+    <li><b>Gear offensif</b> sur le carry, ensuite les niveaux.</li>
+    <li><b>Crit fish</b> : Pause → Restart pour retenter les crits (pas en Tower of Salvation).</li>
+  </ol>
+</section>
+
+<!-- 06 COMBAT -->
+<section class="sec" id="combat" data-s>
+  <div class="sec-head"><div class="cart">06</div><div><p class="eyebrow">Mécaniques</p><h2>Le combat comme un pro</h2><p class="lede">Ce que les joueurs avancés savent et que le jeu explique mal.</p></div></div>
+  <h3><span class="n">6.1</span>Tours et SP</h3>
+  <ul class="list prose">
+    <li>Tu joues les tours impairs, l'ennemi les pairs. Tout se prépare avant de lancer le tour.</li>
+    <li>Un seul costume par perso et par tour. Le SP est une réserve commune qui remonte à chaque tour.</li>
+    <li>En Auto Skill, si le SP manque, le jeu prend un skill moins cher. Auto Burst passe après les skills.</li>
+    <li>Set Costume Order : 10 emplacements en boucle pour programmer une rotation.</li>
+  </ul>
+  <h3><span class="n">6.2</span>Grille et ciblage</h3>
+  <ul class="list prose">
+    <li>Grille 3×4 et 5 persos en général. Guild Raid 5×5 et 7 persos. Golden Colosseum de 3×3 à 5×5.</li>
+    <li>Very Front : premier ennemi de la colonne. Vault : le deuxième. Colonne vide : le jeu cherche à droite, puis à gauche.</li>
+    <li>Taunt et tir concentré forcent la cible. Target Avoidance fait ignorer l'unité tant qu'une autre cible existe.</li>
+    <li>Lignes vertes : actions alliées. Lignes rouges : ce que l'ennemi va frapper. Dégâts magiques en magenta, physiques en jaune.</li>
+    <li>Un perso mort laisse une tombe qui bloque knockbacks et passages.</li>
+  </ul>
+  <h3><span class="n">6.3</span>Chains</h3>
+  <ul class="list prose">
+    <li>Chaque hit = 1 chain = +10 % (100 % + (10 % + bonus) × chains).</li>
+    <li>Plafond 100 chains, sauf Last Night. Les chains disparaissent en fin de tour (sauf Chain Retention).</li>
+    <li>Chain Reinforcement : +1 chain par hit, cumulable. Poolside Guardian Zenith monte le bonus à 20 % par chain sur une case.</li>
+  </ul>
+  <h3><span class="n">6.4</span>La formule de dégâts</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Catégorie</th><th>Cumul</th><th>À retenir</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">ATK / MATK</b></td><td>Additif entre sources</td><td>Réduit par Pressure. Plafond 100 000.</td></tr>
+      <tr><td><b class="name">Crit DMG</b></td><td>Additif</td><td>Crit Rate plafonné à 100 %, chaque point au-dessus = 6 points de Crit DMG. Plafond 10 000 %.</td></tr>
+      <tr><td><b class="name">Chains</b></td><td>Multiplicatif</td><td>+10 % par chain.</td></tr>
+      <tr><td><b class="name">Vulnerability / DMG Increase</b></td><td>Additif</td><td>Générale, physique, magique, par élément, invocations.</td></tr>
+      <tr><td><b class="name">Property</b></td><td>Additif</td><td>50 % de base + Awakening + bond.</td></tr>
+      <tr><td><b class="name">Défense</b></td><td>Multiplicatif</td><td>Réduction plafonnée à 90 %.</td></tr>
+      <tr><td><b class="name">Réductions et barrières</b></td><td>Multiplicatif entre elles</td><td>70 % puis 50 % = 85 %, jamais 100 %.</td></tr>
+      <tr><td><b class="name">Weak Point · Support Bonus</b></td><td>Final</td><td>Fiend Hunter et Guild Raid · Last Night.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note note-pro"><b>Pressure et Augmentation</b><p>Pressure réduit tes buffs de stats. Les buffs d'Augmentation (Teresse, Sunny Inn Helena) ne sont pas touchés, d'où leur valeur.</p></div>
+  <h3><span class="n">6.5</span>Types de dégâts spéciaux</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Type</th><th>Crit</th><th>Ignore</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Fixed</b></td><td>Non</td><td>DEF, MRES, réduction</td><td>Faible hors PvP</td></tr>
+      <tr><td><b class="name">Consumed</b></td><td>Non</td><td>DEF, MRES, réduction, Energy Guard</td><td>Rare</td></tr>
+      <tr><td><b class="name">Pure</b></td><td>Oui</td><td>DEF, MRES, Energy Guard</td><td>Profite des chains et de la Vulnerability</td></tr>
+    </tbody>
+  </table></div>
+  <h3><span class="n">6.6</span>Knockback, Death Time, statuts</h3>
+  <ul class="list prose">
+    <li><b>Knockback</b> : la cible recule. Si elle percute un autre ennemi, gros dégâts basés sur les PV (plafond 50 000 PV). Impossible sur les boss FH/GR.</li>
+    <li><b>Death Time</b> : après le tour 10, tous les 2 tours, +100 % ATK/MATK, -100 % DEF/MRES, +50 % de dégâts subis pour tout le monde. En Golden Colosseum : tour 5, skills coupés.</li>
+    <li><b>Taunt</b> force les attaques, <b>Counter</b> renvoie des dégâts, <b>Evade</b> annule l'attaque, <b>Energy Guard</b> est un bouclier, <b>Immunity</b> bloque un type d'effet.</li>
+    <li><b>Dispel</b> : Scheherazade, Yuri, Eleaneer retirent buffs et debuffs.</li>
+  </ul>
+  <h3><span class="n">6.7</span>L'interface qui fait gagner du temps</h3>
+  <ul class="list prose">
+    <li><b>Preset</b> : 12 teams sauvegardées. <b>Replace</b> : impossible à partir du tour 3 (sauf Salvation).</li>
+    <li><b>Pause</b> : Restart ou Rollback. En event, un restart ne coûte pas de tentative.</li>
+    <li><b>Vitesse ×3</b>, Auto Battle, Auto Skill, Auto Burst.</li>
+    <li>Persos noirs : Settings → Graphics → désactive Silhouette Mode.</li>
+  </ul>
+</section>
+
+<!-- 07 GACHA -->
+<section class="sec" id="gacha" data-s>
+  <div class="sec-head"><div class="cart">07</div><div><p class="eyebrow">Économie</p><h2>Gacha, tickets et Pub</h2><p class="lede">Tu tires des costumes. Le perso se débloque avec son premier costume.</p></div></div>
+  <h3><span class="n">7.1</span>Taux, pity, Draw Points</h3>
+  <div class="tbl"><table class="mid">
+    <tbody>
+      <tr><td><b class="name">1 pull</b></td><td>1 ticket rouge ou 200 Dia (×10 = 2 000 Dia)</td></tr>
+      <tr><td><b class="name">Taux pickup</b></td><td>5★ 3 % (1,5 % featured) · 4★ 14 % · 3★ 83 %</td></tr>
+      <tr><td><b class="name">Pity</b></td><td>Un 5★ garanti au 100e pull sans 5★</td></tr>
+      <tr><td><b class="name">Draw Points</b></td><td>200 = le featured au choix, propres à chaque bannière</td></tr>
+      <tr><td><b class="name">Fin de bannière</b></td><td>Draw Points restants → Powder of Hope</td></tr>
+      <tr><td><b class="name">Ordre de consommation</b></td><td>Selective Exclusive → Draw Ticket → Dia</td></tr>
+      <tr><td><b class="name">Durée</b></td><td>1 semaine (vieux reruns), 2 (standard), 4 (limitées, skins)</td></tr>
+    </tbody>
+  </table></div>
+  <h3><span class="n">7.2</span>12-Pick (tickets violets)</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Costume</th><th>Élément</th><th>Stop</th><th>Rôle</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">B-Rank Idol Helena</b></td><td><span class="el el-lumiere">Lumière</span></td><td>+5</td><td>Cœur magique</td></tr>
+      <tr><td><b class="name">Queen of Gluttis Granadair</b></td><td><span class="el el-eau">Eau</span></td><td>+5 *</td><td>Cœur magique</td></tr>
+      <tr><td><b class="name">Shrine Maiden of Purification Granadair</b></td><td><span class="el el-eau">Eau</span></td><td>+5</td><td>Augmentation</td></tr>
+      <tr><td><b class="name">Adventurer of the Unknown Diana</b></td><td><span class="el el-vent">Vent</span></td><td>+5 *</td><td>Élément</td></tr>
+      <tr><td><b class="name">Magical Innovator Diana</b></td><td><span class="el el-vent">Vent</span></td><td>+0</td><td>1 copie</td></tr>
+      <tr><td><b class="name">Pure White Blessing Refithea</b></td><td><span class="el el-lumiere">Lumière</span></td><td>+1 à +5</td><td>Chains</td></tr>
+      <tr><td><b class="name">Poolside Fairy Refithea</b></td><td><span class="el el-lumiere">Lumière</span></td><td>+3 à +5</td><td>FH / GR</td></tr>
+      <tr><td><b class="name">Robin Hood Zenith</b></td><td><span class="el el-vent">Vent</span></td><td>+3 à +5</td><td>Chain / Vulnerability</td></tr>
+      <tr><td><b class="name">Homunculus Lathel</b></td><td><span class="el el-feu">Feu</span></td><td>+5</td><td>Cœur physique</td></tr>
+      <tr><td><b class="name">Dark Saintess Liberta</b></td><td><span class="el el-feu">Feu</span></td><td>+5 *</td><td>Cœur physique</td></tr>
+      <tr><td><b class="name">Onsen Manager Liberta</b></td><td><span class="el el-feu">Feu</span></td><td>+5</td><td>Chains / Augmentation</td></tr>
+      <tr><td><b class="name">Water Park Queen Wilhelmina</b></td><td><span class="el el-eau">Eau</span></td><td>+4</td><td>Chain</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note note-gold"><b>* Copie de Pub</b><p>Tant que Granadair, Diana et Liberta ne sont pas recrutées au Pub, retire-les du 12-Pick à +4 et finis le +5 au Pub.</p></div>
+  <p class="prose"><b>Remplacements</b> : Poolside Guardian Zenith +5, Iron Monarch Wilhelmina +4, Sunny Inn Hand Helena +5, Red Riding Hood Rou +5, Young Lady Blade +5, Medical Club Teresse +5, Shadowed Dream Sonya +4/+5, Miracle Marine Mamonir +5, Heavenly Guardian Successor Glacia +4, New Hire Seir +5, Shadow Bunny Eleaneer +4.</p>
+  <h3><span class="n">7.3</span>Recommended 5★ Selective Tickets</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Costume</th><th>Objectif</th><th class="num">Tickets</th><th>Avec Mega SALE</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">B-Rank Idol Helena</b></td><td>+1 (en premier)</td><td class="num">2</td><td>+3 (4)</td></tr>
+      <tr><td><b class="name">Adventurer of the Unknown Diana</b></td><td>+2</td><td class="num">3</td><td>+4 (5)</td></tr>
+      <tr><td><b class="name">Homunculus Lathel</b></td><td>+2</td><td class="num">3</td><td>+3 (4)</td></tr>
+      <tr><td><b class="name">New Hire Seir</b></td><td>+0</td><td class="num">1</td><td>-</td></tr>
+      <tr><td><b class="name">Track and Field Captain Levia</b></td><td>+0</td><td class="num">1</td><td>-</td></tr>
+      <tr><td><b class="name">Robin Hood Zenith</b></td><td>+0</td><td class="num">1</td><td>-</td></tr>
+      <tr><td><b class="name">Game Club Rafina</b></td><td>+0</td><td class="num">1</td><td>-</td></tr>
+    </tbody>
+  </table></div>
+  <h3><span class="n">7.4</span>Pub et contrats</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Priorité</th><th>Costume</th><th>Où</th><th>Décision</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><b class="name">Adventurer of the Unknown Diana</b></td><td>Story Pack 10</td><td><span class="c c-do">Max</span></td></tr>
+      <tr><td class="num">2</td><td><b class="name">Dark Saintess Liberta</b></td><td>Story Pack 15</td><td><span class="c c-do">Très haute</span> Le slot SP15 peut afficher Apostle Blade ou Liberta (50/50) : prends Liberta.</td></tr>
+      <tr><td class="num">3</td><td><b class="name">Queen of Gluttis Granadair</b></td><td>Aléatoire</td><td><span class="c c-do">Très haute</span></td></tr>
+      <tr><td class="num">4</td><td>Costume du Pub <b>en bannière</b></td><td>Selon la bannière</td><td><span class="c c-do">Oui</span> 10 Draw Tickets</td></tr>
+      <tr><td class="num">5</td><td><b class="name">Night of Death Mamonir</b></td><td>Aléatoire</td><td><span class="c c-opt">Bon</span></td></tr>
+      <tr><td class="num">6</td><td><b class="name">Fiend Scholar Olstein</b></td><td>Story Pack 4</td><td><span class="c c-opt">Option</span> Débloque le Dispatch</td></tr>
+      <tr><td class="num">7</td><td><b class="name">Shadowed Dream Palette</b></td><td>Story Pack 20</td><td><span class="c c-opt">Bon</span></td></tr>
+      <tr><td class="num">8</td><td><b class="name">The Gluttonous Refithea · The Curse Celia</b></td><td>Aléatoire</td><td><span class="c c-opt">Ensuite</span></td></tr>
+    </tbody>
+  </table></div>
+  <ul class="list prose">
+    <li>Les persos aléatoires changent toutes les <b>2 heures</b>. Un costume recruté ne revient plus, les autres deviennent plus probables (18 5★ au départ, environ 0,78 % chacun).</li>
+    <li>Jamais de contrat sur un 3★ ou 4★, jamais de refresh en Dia.</li>
+    <li>Fixes par Story Pack : Olstein (4), Angel of Destruction Teresse (7), Diana (10), Liberta ou Apostle Blade (15), Apostle Morpeah (17), Faithful Wings Olivier (18), Palette (20).</li>
+  </ul>
+</section>
+
+<!-- 08 PROGRESSION -->
+<section class="sec" id="progression" data-s>
+  <div class="sec-head"><div class="cart">08</div><div><p class="eyebrow">Progression</p><h2>Monter un perso</h2><p class="lede">Niveaux et gear pour les DPS, Potential et Burst pour les supports, copies plutôt pour les supports.</p></div></div>
+  <h3><span class="n">8.1</span>Niveaux et Slimes</h3>
+  <ul class="list prose">
+    <li>Niveau max 100, par paliers de rang (20, 40, 60, 80, 100) avec des Rank-Up Stars.</li>
+    <li>Slime jaune 200 EXP, bleu 800, rouge 2 000. Farm au Slime Empire, les jours de bonus Slime.</li>
+  </ul>
+  <h3><span class="n">8.2</span>Copies (+0 à +5)</h3>
+  <ul class="list prose">
+    <li>Breakpoints les plus courants : -1 SP (à +1 ou +3), durée de buff, cooldown. Chaque fiche de costume les liste (section 15).</li>
+    <li>Un 3★ ou 4★ à +5 bat souvent un 5★ à +0.</li>
+    <li>Une copie au-delà de +5 devient du Golden Thread.</li>
+    <li>Unidupe : 1 600 Golden Thread par mois pour une copie du costume de ton choix.</li>
+  </ul>
+  <h3><span class="n">8.3</span>Potential Liberation</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Nœud</th><th>Effet</th><th>Actif</th><th>Coût</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Petit</b></td><td>Stats de base</td><td>Toujours</td><td>30K Gold + 50 Crystals</td></tr>
+      <tr><td><b class="name">Moyen</b></td><td>Gros bonus de stats</td><td>Si ce costume est le bond</td><td>20-40K Gold + 0-350 Crystals</td></tr>
+      <tr><td><b class="name">Grand</b></td><td>-1 SP, portée, dégâts</td><td>Toujours</td><td>500 Crystals + 1 Tear, irréversible</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="list prose">
+    <li>Buffers : SP et cooldown, puis durée et zone, puis valeur. DPS : confort d'abord, dégâts en dernier.</li>
+    <li>Bond : le costume le plus « potentialisé ». Évite les bonds à bonus d'élément en contenu général.</li>
+    <li>Tears : Event Shop (3 par event), Guild Shop (1/mois), Soul Wager (1/saison), Fiend Hunter niveau 10, Tower of Salvation.</li>
+  </ul>
+  <h3><span class="n">8.4</span>Burst</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Costume</th><th>Par palier</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td>5★ standard</td><td>60 Sparks of Rampage + 1,5 M Gold</td><td>180 + 4,5 M</td></tr>
+      <tr><td>5★ collab</td><td>60 Sparks of the Otherworld + 50K Gold</td><td>180 + 150K</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">Sparks par mois : Remnants 200, Event Shop 50-100, Mirror Wars 65, Colosseum 65, Guild 60, Golden Thread 55, Powder 55, Taros 40 (≈ 530 à 585). Priorité : Diana B1-3, Helena B1-3, Onsen Liberta B1-3, H.Lathel B1, Medical Club Teresse B3. Puis Kyouka B1 (Otherworld), Glacia, Sunny Inn Helena, Mamonir, Seir. Nebris B1-2 et Wilhelmina B1 en priorité moyenne.</p>
+  <h3><span class="n">8.5</span>Engraving et Awakening</h3>
+  <ul class="list prose">
+    <li>Engraving : Life (PV), Strength (ATK/MATK/Crit DMG), Perseverance (DEF/MRES), 10 niveaux chacun. 5★ complet : 1 110 Scrolls, 300 Essences, ~3 M Gold.</li>
+    <li>Awakening : 200 Elixirs + 500K Gold (4★ : 160, 3★ : 120). Types : Strength (12 % ATK + 10 % property), Magic (12 % MATK + 10 %), Mind's Eye (24 % Crit DMG + 4 % Crit Rate), Protection, Anti-Magic.</li>
+    <li>Seulement le DPS principal, sauf la tâche du Guide Pass (Nebris).</li>
+  </ul>
+  <h3><span class="n">8.6</span>Rapport</h3>
+  <ul class="list prose">
+    <li>3 Talks par jour (reset 15:00 UTC). Bonne réponse 100 EXP, sinon 80. Quick Talk après 5 Talks.</li>
+    <li>15 Talks finis = 100 Dia. Les 6 épisodes d'histoire rapportent des Dia.</li>
+    <li>Plafond : 10 à l'obtention, 15 après l'Awakening, 20 après le Potential complet.</li>
+    <li>Rapport Buff : jusqu'à +50 % de Crit Rate global (10 costumes niveau 20).</li>
+    <li>Les bonnes réponses costume par costume sont en <a href="#rapport">16</a>.</li>
+  </ul>
+</section>
+
+<!-- 09 GEAR -->
+<section class="sec" id="gear" data-s>
+  <div class="sec-head"><div class="cart">09</div><div><p class="eyebrow">Gear</p><h2>Gear : craft, builds, refine</h2><p class="lede">Un bon gear multiplie les dégâts par dix. Les builds de DotGG sont obsolètes depuis le 02/07/2026 : on suit le Compendium.</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Couche</th><th>Valeurs</th><th>À retenir</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Slots</b></td><td>Arme, Gants, Accessoire · Armure, Casque</td><td>Offensif d'abord.</td></tr>
+      <tr><td><b class="name">Grade</b></td><td>N, R, SR, UR</td><td>UR donne le plus.</td></tr>
+      <tr><td><b class="name">Tier</b></td><td>I 50 % · II 30 % · III 15 % · IV 5 %</td><td>Étoiles argent 0 à 3, étoile dorée = EX. Pas de I ou II.</td></tr>
+      <tr><td><b class="name">Niveau</b></td><td>+1 à +9</td><td>Options à +3, +6, +9. Échec sans pénalité.</td></tr>
+      <tr><td><b class="name">Refine</b></td><td>Score 6 à 24</td><td>Meilleur score gardé. Arrête-toi vers 18.</td></tr>
+      <tr><td><b class="name">Options</b></td><td>3 substats</td><td>Reroll avec Stones puis Crystals, verrou ×2 à ×4, 12 h pour choisir.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid2">
+    <div class="card"><h4>Gear d'event</h4><ul><li>UR = tier III, score 24 automatique.</li><li>27 matériaux pour +9, aucun échec.</li><li>Jamais le SR.</li><li>Utile jusqu'en endgame pour Last Night.</li></ul></div>
+    <div class="card"><h4>Gear EX</h4><ul><li>Tier IV + une stat exclusive.</li><li>UR EX ≈ +10 à 20 % sur un UR IV.</li><li>Doublon 5★ : garde-en un. 3-4★ ou SR : démonte.</li><li>Kyouka : EX gratuite oui, bannière de gear non.</li></ul></div>
+  </div>
+  <h3>Route de craft</h3>
+  <ol class="list prose">
+    <li>Code WAITING4LEGEND (Venomous Touch UR III) s'il marche encore.</li>
+    <li>Crafte des N/R avec Fred jusqu'à Crafting <b>Legendary</b>. Pas de SR.</li>
+    <li>Arme + gants UR III du carry principal (Eclipse).</li>
+    <li>Venomous Touch, arme et gants du deuxième DPS (Dalvi).</li>
+    <li>Sets offensifs UR IV, en commençant par Venomous Touch.</li>
+    <li>2 armures et 2 casques UR III.</li>
+    <li>UR IV de l'autre type de dégâts (team Kyouka/Nebris).</li>
+    <li>Priorité globale : Venomous Touch > gants > arme > armure.</li>
+  </ol>
+  <h3>Quelle pièce pour quel rôle</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Rôle</th><th>Arme</th><th>Gants</th><th>Accessoire</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">DPS phys</b></td><td>Evil Dragon's Blade (early), Peerless Javelin / Hammer of Thunder</td><td>God-King's Silver Arm (early), Prime Authority</td><td>Venomous Touch</td></tr>
+      <tr><td><b class="name">DPS mag</b></td><td>Travel God's Friend (early), Demon's Forbidden Book / Eye of the Destroyer</td><td>Shackle of Treachery (early), Dragon Scales Protection</td><td>Venomous Touch</td></tr>
+      <tr><td><b class="name">DPS sur ses PV</b></td><td>Evil Dragon's Blade ou Travel God's Friend</td><td>Ring of Fury ou Rebellion</td><td>Charming Gaze</td></tr>
+      <tr><td><b class="name">DPS sur PV ennemis</b></td><td>Evil Dragon's Blade ou Travel God's Friend</td><td>Ring of Fury ou Rebellion</td><td>Venomous Touch</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">Armure + casque : Invulnerable Armor + Helm of Carnage contre le physique, Fiend Guard + Radiant Wisdom contre le magique, Immortal Golden Armor + Helm of Death ou Hellfire Robe + Crown of Galaxy contre les dégâts fixes. Stats cibles d'un DPS : early 2 200+ ATK/MATK et 550 %+ Crit DMG, late 3 000+ et 450 %+. Démonte à +7 pour le meilleur rendement de Powder.</p>
+  <h3>Toutes les pièces UR craftables</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Pièce</th><th>Stats et usage</th></tr></thead>
+    <tbody id="gear-rows"></tbody>
+  </table></div>
+  <p class="prose">Livres de compétence : ★1-★2 shop du Story Pack 3, ★3 shop du Story Pack 10 ou Evil Castle, ★4 Evil Castle. Alchemy (Scheherazade) : commence par les conversions les moins chères.</p>
+</section>
+
+<!-- 10 MODES -->
+<section class="sec" id="modes" data-s>
+  <div class="sec-head"><div class="cart">10</div><div><p class="eyebrow">Contenu</p><h2>Tous les modes du jeu</h2><p class="lede">Tout est rangé en packs (cartouches). L'onglet Story est une archive.</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Déblocage</th><th>Ce qui s'ouvre</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Master Pack 1</b></td><td>Gacha, events. Toutes ses quêtes : The Soul Wager</td></tr>
+      <tr><td><b class="name">Story Pack 1</b></td><td>Fishing Voyage</td></tr>
+      <tr><td><b class="name">Story Pack 3 (Mist Man)</b></td><td>Last Night, Path of Adventure, Mirror Wars</td></tr>
+      <tr><td><b class="name">Story Pack 4 (Cat Daddy)</b></td><td>Evil Castle, Olstein au Pub</td></tr>
+      <tr><td><b class="name">Story Pack 6 (Pagan Tower)</b></td><td>Golden Colosseum</td></tr>
+      <tr><td><b class="name">Story Pack 9</b></td><td>Tower of Salvation</td></tr>
+      <tr><td><b class="name">Story Pack 10 (Homunculus)</b></td><td>Diana au Pub</td></tr>
+      <tr><td><b class="name">Story Pack 15 (Promise of Vengeance)</b></td><td>Liberta au Pub</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Exploration et capacités de terrain</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Capacité</th><th>Effet</th><th>Chez toi</th><th>Fréquence</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Absorption</b></td><td>Aspire Finds et objets cachés</td><td>The Curse Celia</td><td>Quotidien</td></tr>
+      <tr><td><b class="name">Search</b></td><td>Révèle les objets cachés</td><td>Herb Tracker Lathel, Jayden</td><td>Libre</td></tr>
+      <tr><td><b class="name">Assemble</b></td><td>Regroupe les monstres à récompense</td><td>Refithea, Sonya, Granadair</td><td>Quotidien</td></tr>
+      <tr><td><b class="name">Overpower</b></td><td>Bat certains monstres instantanément</td><td>Teresse, Alec, Aquila</td><td>Quotidien</td></tr>
+      <tr><td><b class="name">Steal</b></td><td>Vole des objets aux PNJ</td><td>Rigenette, Bernie, Andrew</td><td>Hebdo</td></tr>
+      <tr><td><b class="name">Magic Circle</b></td><td>Téléport entre zones sûres</td><td>Eclipse, Lucrezia</td><td>Libre</td></tr>
+      <tr><td><b class="name">Revival · Immortal · Stealth</b></td><td>Relever · revenir à 100 % PV · invisibilité</td><td>Samay · Wiggle · Rou</td><td>-</td></tr>
+      <tr><td><b class="name">Craft · Alchemy · Dispatch</b></td><td>Gear · matériaux · revenus passifs</td><td>Fred, Layla · Scheherazade · Olstein, Diana</td><td>-</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="list prose">
+    <li>Finds (étincelles bleues et vertes) et Gluttis : meilleurs chapitres 8, 9 et 11. Le contenu de terrain se réinitialise chaque semaine.</li>
+    <li>Plus de mobs dans un Hunting Ground : abandonne la quête active.</li>
+    <li>Quêtes du tableau d'affichage : jusqu'à 3 par jour, Gold et remise chez les marchands.</li>
+  </ul>
+  <h3>Hunting Grounds et Path of Adventure</h3>
+  <ul class="list prose">
+    <li>Rice : 6 en Hunting Grounds (tâche du pass), les 84 autres en Goblin Cave (Gold) ou Slime Empire (Slimes) selon le jour de bonus.</li>
+    <li>Torches : Magic Crystal Caves de l'élément que tu montes. Rien ne se cumule d'un jour à l'autre.</li>
+    <li>Rice « payant » des events : décoche « Use Free Cooked Rice Only ».</li>
+    <li>Clear les 3 donjons en Normal, puis Hard, puis Very Hard.</li>
+  </ul>
+  <h3>Mirror Wars</h3>
+  <ul class="list prose">
+    <li>40 Blood Cocktails par jour (00:00 UTC). Repeat Battle sur 40 : un combat, 40 fois les récompenses.</li>
+    <li>Medals à chaque combat, victoire ou défaite. Saison du lundi au dimanche, pas d'attaque le dimanche après 15:00 UTC.</li>
+    <li>Dia de fin de semaine : Bronze 400, Gold I 500, Platinum I 600, Ruby I 700, Dia I 800, jusqu'à 2 000 au sommet.</li>
+  </ul>
+  <h3>Evil Castle</h3>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Tour</th><th>Format</th><th>Team</th><th>Récompenses</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Pride</b></td><td>6 étages au score</td><td>Générale</td><td>1 000 Coins + 10 AC par étage une fois, puis 300-900 Coins + 6-9 AC par jour selon le score</td></tr>
+      <tr><td><b class="name">Desire</b></td><td>250 étages</td><td>Générale jusqu'à 150, puis Diana + élément</td><td>1 ticket par étage, +100 Dia tous les 5, +150 Dia tous les 10</td></tr>
+      <tr><td><b class="name">Salvation</b></td><td>Roguelike, 4 semaines</td><td>Draft</td><td>Tears, tickets, Property tickets, Crystals, Elixirs</td></tr>
+      <tr><td><b class="name">Wrath</b></td><td>100 étages</td><td><b>Magique</b></td><td>5 tickets + 100 Dia tous les 5, 10 + 150 tous les 10, Property ticket tous les 50</td></tr>
+      <tr><td><b class="name">Jealousy</b></td><td>100 étages</td><td><b>Physique</b></td><td>Comme Wrath</td></tr>
+    </tbody>
+  </table></div>
+  <p class="prose">Pride : ignore les bonus d'élément au début, prends les points gratuits (PV pleins, fin en 1 tour, 1 M de dégâts en un hit). Salvation : améliore Refresh Attempts, puis Starting SP. Remplacer un perso y coûte 2 SP mais remet ses cooldowns à zéro. Pas de crit fish : l'aléatoire est fixé.</p>
+  <h3 id="lastnight">Last Night</h3>
+  <ul class="list prose">
+    <li>Un tour, 20 costumes qui jouent l'un après l'autre. Skills sans coût SP, buffs de stats divisés par deux, chains sans plafond, Burst max automatique.</li>
+    <li>Le boss n'a ni DEF, ni élément, et résiste aux debuffs sauf les chains.</li>
+    <li>Support Bonus : chaque costume non utilisé ajoute des dégâts (copies, niveau, gear). Tes freebies et le gear UR d'event comptent.</li>
+    <li>Paliers : 10 000 → 1 AC · 700 000 → 2 AC + 1 Elixir · 8 M → 3 + 2 · 26 M → 4 + 3 · 52 M → 5 + 4 · <b>110 M → 5 AC + 5 Elixirs par jour</b>.</li>
+  </ul>
+  <h3 id="fh">Fiend Hunter</h3>
+  <ul class="list prose">
+    <li>Toutes les 2 semaines : semaine d'entraînement, puis semaine de chasse (clôture le mercredi 15:00 UTC).</li>
+    <li>Jusqu'à 3 teams de 5, dans l'ordre. Dégâts reportés d'un niveau à l'autre. Quick Battle rejoue ton meilleur score de la veille.</li>
+    <li>Niveaux 1-9 : 3 tickets chacun. Niveau 10 : 3 tickets + 1 Tear. 11-15 : 50K Gold + 30K Powder.</li>
+    <li>Boss actuel et historique complet : section <a href="#bosses">17</a>.</li>
+  </ul>
+  <h3>Guild Raid</h3>
+  <ul class="list prose">
+    <li>Grille 5×5, 7 persos, weak points. Semaine 1 du cycle de 28 jours quand une saison est annoncée.</li>
+    <li>Guild Shop : Tear, Sparks, 10 tickets, Elixirs chaque mois.</li>
+  </ul>
+  <h3>Golden Colosseum</h3>
+  <ul class="list prose">
+    <li>Costumes sans gear, SP infini, initiative aléatoire, Death Time au tour 5 (skills coupés).</li>
+    <li>Blessings : un set pour jouer en premier, un pour jouer en second. L'ordre compte.</li>
+    <li>100 tentatives par semaine, 3 recharges à 10 Dia. Missions : 900 Coins pour 40 victoires. Rang : 900 à 2 000 Coins.</li>
+    <li>Pas le temps : 10 victoires minimum, en copiant une team de pennyosa, GemMog ou VioletRose.</li>
+  </ul>
+  <h3>The Soul Wager · Taros Tactical Manual</h3>
+  <ul class="list prose">
+    <li>Soul Wager : auto-battler sur grille 7×7, saison de 8 semaines, 5 vies par plateau. Full clear = tout le shop, Tear en premier.</li>
+    <li>Taros : persos imposés, saison de 28 jours. 2 M Gold, 300K Powder et 40 Sparks via les missions.</li>
+  </ul>
+  <h3>Season Events</h3>
+  <ul class="list prose">
+    <li>5 tentatives par jour (70 par event), un échec ne coûte rien.</li>
+    <li>Posséder les 4 costumes de l'event donne jusqu'à +100 % de monnaie.</li>
+    <li>15 combats avec 3 conditions (victoire, restriction, 8 tours max). Quick Battle après les combats 5, 10, 15.</li>
+    <li>6 missions à 100 Dia. Shop ouvert 28 jours : fais glisser le logo pour l'ancien shop.</li>
+  </ul>
+  <h3>Modes détente</h3>
+  <ul class="list prose">
+    <li><b>Glupy Diner</b> : revenus passifs (plafond 24 h), 20 Deco Coins par jour, clients spéciaux avec Live2D.</li>
+    <li><b>Fishing Voyage</b> : pêche manuelle et piège (après le Rowboat), shop mensuel facile à vider.</li>
+    <li><b>Fantasia Square</b> : Goddess Statue chaque jour, statues de Champion chaque semaine.</li>
+    <li><b>Territory</b> : ferme et construction, aucun impact sur la progression.</li>
+  </ul>
+</section>
+
+<!-- 11 SHOPS -->
+<section class="sec" id="shops" data-s>
+  <div class="sec-head"><div class="cart">11</div><div><p class="eyebrow">Boutiques</p><h2>Chaque shop, dans l'ordre</h2><p class="lede">Rare et limité > tickets > gear > Gold et Slimes. Les limites mensuelles reviennent le 1er à 00:00 UTC.</p></div></div>
+  <h3>Event Shop</h3>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th class="num">Ordre</th><th>Achat</th><th class="num">Coût</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1-3</td><td>Tear of Goddess ×3</td><td class="num">1 000 · 2 000 · 3 000</td></tr>
+      <tr><td class="num">4</td><td>Spark of Rampage ×30</td><td class="num">600</td></tr>
+      <tr><td class="num">5</td><td>Draw Ticket ×15</td><td class="num">6 000</td></tr>
+      <tr><td class="num">6</td><td>Ancient Crystal ×40</td><td class="num">2 400</td></tr>
+      <tr><td class="num">7-9</td><td>Essences ×50 (×3)</td><td class="num">1 000 chacune</td></tr>
+      <tr><td class="num">10-11</td><td>Gear UR + 27 matériaux</td><td class="num">3 000 + 2 700</td></tr>
+      <tr><td class="num">12</td><td>Refining Crystal ×500</td><td class="num">1 500</td></tr>
+      <tr><td class="num">13-14</td><td>Gold ×1 M · Ability Pill ×150K</td><td class="num">2 000 · 10 000</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid2">
+    <div class="card"><h4>Golden Thread</h4><ul><li>Unidupe : 1 600</li><li>Sparks ×55 : 275</li><li>Featured : 1 600 si breakpoint</li></ul></div>
+    <div class="card"><h4>Powder of Hope</h4><ul><li>Costume utile : 200</li><li>Sparks ×55 : gros surplus seulement</li></ul></div>
+    <div class="card"><h4>Refinement Remnants</h4><ul><li>Sparks ×200 : 600</li><li>Tickets de score 24 / 23 : endgame</li></ul></div>
+    <div class="card"><h4>Mirror Wars</h4><ul><li>Costume featured : 18 000</li><li>Refining Crystal ×150 : 10 500</li></ul></div>
+    <div class="card"><h4>Evil Castle</h4><ul><li>Engraving Scroll ×2 000 : 10 000</li><li>Essences ×200 (×3) : 4 000 chacune</li><li>Option : Gold, Powder, livres ★4</li></ul></div>
+    <div class="card"><h4>Guild</h4><ul><li>Tear : 2 000</li><li>Sparks : 750</li><li>10 tickets : 3 000</li><li>100 Elixirs : 3 000</li><li>Essences ×100 : 1 000</li></ul></div>
+    <div class="card"><h4>Golden Colosseum</h4><ul><li>Property ticket ×2 : 2 000</li><li>Sparks ×55 : 550</li><li>10 tickets : 2 000</li><li>Refining Crystal ×1 000 : 2 000</li><li>AC ×50 : 1 000</li></ul></div>
+    <div class="card"><h4>Soul Wager</h4><ul><li>Tear : 1 000</li><li>Powder, Gold, Crystals d'élément</li><li>Contrat 5★ et contrats 4★</li></ul></div>
+    <div class="card"><h4>Fishing</h4><ul><li>Gold Pocket ×10</li><li>Refining Powder ×30</li><li>Deco Coin ×450</li></ul></div>
+  </div>
+</section>
+
+<!-- 12 ROUTINE -->
+<section class="sec" id="routine" data-s>
+  <div class="sec-head"><div class="cart">12</div><div><p class="eyebrow">Routine</p><h2>Ta routine, qui se remet à zéro toute seule</h2><p class="lede">Chaque liste se décoche d'elle-même au bon moment : chaque jour, chaque semaine de jeu, chaque mois, chaque event, chaque saison. Gardé dans ce navigateur.</p></div></div>
+  <div class="routine">
+    <div class="ck" data-cadence="jour">
+      <div class="ck-head"><h4>Chaque jour</h4><span class="prog">0/0</span></div>
+      <div class="when"></div><div class="bar"><i></i></div>
+      <ul>
+        <li><label><input type="checkbox" id="d1"><span>Mail, login, onglet Event</span></label></li>
+        <li><label><input type="checkbox" id="d2"><span>Free pull de chaque bannière</span></label></li>
+        <li><label><input type="checkbox" id="d3"><span>Rice : 1 Quick Hunt en Hunting Grounds, le reste Gold ou Slimes</span></label></li>
+        <li><label><input type="checkbox" id="d4"><span>Torches : Crystals de l'élément que tu montes</span></label></li>
+        <li><label><input type="checkbox" id="d5"><span>Mirror Wars : 40 cocktails via Repeat Battle</span></label></li>
+        <li><label><input type="checkbox" id="d6"><span>Season Event : 5 tentatives</span></label></li>
+        <li><label><input type="checkbox" id="d7"><span>Missions quotidiennes + tâches du pass</span></label></li>
+        <li><label><input type="checkbox" id="d8"><span>Familier : rewards Evil Castle, Last Night, Dispatch</span></label></li>
+        <li><label><input type="checkbox" id="d9"><span>Fiend Hunter (semaine de chasse)</span></label></li>
+        <li><label><input type="checkbox" id="d10"><span>3 Talks de Rapport</span></label></li>
+        <li><label><input type="checkbox" id="d11"><span>Absorption / Assemble / Overpower <span class="lo">(bas)</span></span></label></li>
+        <li><label><input type="checkbox" id="d12"><span>Business Management : Diner, pêche, Territory <span class="lo">(bas)</span></span></label></li>
+        <li><label><input type="checkbox" id="d13"><span>Guilde, Goddess Statue, Web Shop <span class="lo">(bas)</span></span></label></li>
+      </ul>
+      <button class="btn reset" type="button">Tout décocher</button>
+    </div>
+    <div class="ck" data-cadence="semaine">
+      <div class="ck-head"><h4>Chaque semaine de jeu</h4><span class="prog">0/0</span></div>
+      <div class="when"></div><div class="bar"><i></i></div>
+      <ul>
+        <li><label><input type="checkbox" id="w1"><span>Missions hebdomadaires</span></label></li>
+        <li><label><input type="checkbox" id="w2"><span>Golden Colosseum : 10 victoires minimum (40 pour tout)</span></label></li>
+        <li><label><input type="checkbox" id="w3"><span>Guild Raid (semaine 1 du cycle)</span></label></li>
+        <li><label><input type="checkbox" id="w4"><span>Steal hebdo et quêtes de la carte <span class="lo">(bas)</span></span></label></li>
+        <li><label><input type="checkbox" id="w5"><span>Statues de Champion <span class="lo">(bas)</span></span></label></li>
+        <li><label><input type="checkbox" id="w6"><span>Quelques étages de Desire / Jealousy</span></label></li>
+      </ul>
+      <button class="btn reset" type="button">Tout décocher</button>
+    </div>
+    <div class="ck" data-cadence="event">
+      <div class="ck-head"><h4>Chaque event (14 jours)</h4><span class="prog">0/0</span></div>
+      <div class="when"></div><div class="bar"><i></i></div>
+      <ul>
+        <li><label><input type="checkbox" id="e1"><span>Clear rewards des 15 combats</span></label></li>
+        <li><label><input type="checkbox" id="e2"><span>Les 6 missions à 100 Dia</span></label></li>
+        <li><label><input type="checkbox" id="e3"><span>Histoire de l'event</span></label></li>
+        <li><label><input type="checkbox" id="e4"><span>Event Shop : Tears, Sparks, tickets, AC</span></label></li>
+        <li><label><input type="checkbox" id="e5"><span>Fiend Hunter : niveau 10 minimum</span></label></li>
+        <li><label><input type="checkbox" id="e6"><span>Powder of Hope : costume utile ?</span></label></li>
+        <li><label><input type="checkbox" id="e7"><span>Vérifier les stops du 12-Pick</span></label></li>
+      </ul>
+      <button class="btn reset" type="button">Tout décocher</button>
+    </div>
+    <div class="ck" data-cadence="mois">
+      <div class="ck-head"><h4>Chaque mois</h4><span class="prog">0/0</span></div>
+      <div class="when"></div><div class="bar"><i></i></div>
+      <ul>
+        <li><label><input type="checkbox" id="m1"><span>Golden Thread : unidupe + Sparks</span></label></li>
+        <li><label><input type="checkbox" id="m2"><span>Refinement Remnants : Sparks ×200</span></label></li>
+        <li><label><input type="checkbox" id="m3"><span>Guild Shop</span></label></li>
+        <li><label><input type="checkbox" id="m4"><span>Evil Castle Shop</span></label></li>
+        <li><label><input type="checkbox" id="m5"><span>Golden Colosseum Shop</span></label></li>
+        <li><label><input type="checkbox" id="m6"><span>Fishing Shop</span></label></li>
+      </ul>
+      <button class="btn reset" type="button">Tout décocher</button>
+    </div>
+    <div class="ck" data-cadence="saison">
+      <div class="ck-head"><h4>Chaque saison (28 jours)</h4><span class="prog">0/0</span></div>
+      <div class="when"></div><div class="bar"><i></i></div>
+      <ul>
+        <li><label><input type="checkbox" id="s1"><span>Season Pass premium (1 000 Dia)</span></label></li>
+        <li><label><input type="checkbox" id="s2"><span>Taros : plateau et bingos</span></label></li>
+        <li><label><input type="checkbox" id="s3"><span>Tower of Salvation : difficulté 1 minimum</span></label></li>
+        <li><label><input type="checkbox" id="s4"><span>Mirror Wars Shop : costume featured</span></label></li>
+      </ul>
+      <button class="btn reset" type="button">Tout décocher</button>
+    </div>
+    <div class="ck" data-cadence="sw">
+      <div class="ck-head"><h4>Chaque saison de Soul Wager (8 semaines)</h4><span class="prog">0/0</span></div>
+      <div class="when"></div><div class="bar"><i></i></div>
+      <ul>
+        <li><label><input type="checkbox" id="sw1"><span>Finir tous les plateaux</span></label></li>
+        <li><label><input type="checkbox" id="sw2"><span>Vider le shop (Tear en premier)</span></label></li>
+      </ul>
+      <button class="btn reset" type="button">Tout décocher</button>
+    </div>
+  </div>
+  <h3>Jalons du compte</h3>
+  <div class="routine">
+    <div class="ck" data-cadence="perm">
+      <div class="ck-head"><h4>Une seule fois</h4><span class="prog">0/0</span></div>
+      <div class="bar"><i></i></div>
+      <ul>
+        <li><label><input type="checkbox" id="p1" checked><span>Master Pack 1</span></label></li>
+        <li><label><input type="checkbox" id="p2" checked><span>The Curse Celia via Infinite Draw</span></label></li>
+        <li><label><input type="checkbox" id="p3"><span>Codes utilisés</span></label></li>
+        <li><label><input type="checkbox" id="p4"><span>Freebies Event tab lancés</span></label></li>
+        <li><label><input type="checkbox" id="p5"><span>Story Pack 3 : Last Night, Path of Adventure, Mirror Wars</span></label></li>
+        <li><label><input type="checkbox" id="p6"><span>Guilde rejointe</span></label></li>
+        <li><label><input type="checkbox" id="p7"><span>Premier score Last Night</span></label></li>
+        <li><label><input type="checkbox" id="p8"><span>Crafting Advanced, puis Expert</span></label></li>
+        <li><label><input type="checkbox" id="p9"><span>Donjons en Normal, Hard, Very Hard</span></label></li>
+        <li><label><input type="checkbox" id="p10"><span>Story Pack 4 : un run de Tower of Pride</span></label></li>
+        <li><label><input type="checkbox" id="p11"><span>Story Pack 6 : Golden Colosseum</span></label></li>
+        <li><label><input type="checkbox" id="p12"><span>Story Pack 9 : Tower of Salvation</span></label></li>
+        <li><label><input type="checkbox" id="p13"><span>Story Pack 10 : Diana au Pub</span></label></li>
+        <li><label><input type="checkbox" id="p14"><span>Crafting et Alchemy Legendary</span></label></li>
+        <li><label><input type="checkbox" id="p15"><span>Eclipse et Dalvi niveau 100</span></label></li>
+        <li><label><input type="checkbox" id="p16"><span>Story Pack 15 : Liberta au Pub</span></label></li>
+      </ul>
+      <button class="btn reset" type="button">Tout décocher</button>
+    </div>
+  </div>
+</section>
+
+<!-- 13 PLAN -->
+<section class="sec" id="plan" data-s>
+  <div class="sec-head"><div class="cart">13</div><div><p class="eyebrow">Feuille de route</p><h2>Plan 30 jours, jalons 90 jours</h2></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Période</th><th>Objectifs</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Aujourd'hui</b></td><td>Kyouka +5 + UR EX + Burst · stop collab · 12-Pick configuré · freebies lancés · 1 000 Dia de côté</td></tr>
+      <tr><td><b class="name">1er-7 oct.</b></td><td>Fiend Hunter Spirit of the Mine avec Kyouka · Guild Raid · dernière chance Teresse · shop collab</td></tr>
+      <tr><td><b class="name">Semaine 2</b></td><td>Eclipse montée · Fred en Crafting · tâche Awakening sur Nebris · Evil Castle (Pride une fois, Desire)</td></tr>
+      <tr><td><b class="name">Semaine 3</b></td><td>Story 10 → Diana · Helena +1 · Dalvi montée · Fiend Hunter niveau 10</td></tr>
+      <tr><td><b class="name">Semaine 4</b></td><td>Story 6 → Colosseum · gear UR d'Eclipse · audit Tears / GT / Powder</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid2">
+    <div class="card"><h4>À 90 jours · compte</h4><ul><li>Story Pack 15, Liberta recrutée</li><li>Crafting et Alchemy Legendary</li><li>Guild Shop vidé chaque mois</li></ul></div>
+    <div class="card"><h4>À 90 jours · teams</h4><ul><li>Eclipse et Dalvi niveau 100, UR III + Venomous Touch</li><li>Jealousy avec la team phys, Wrath avec la team magique</li></ul></div>
+    <div class="card"><h4>À 90 jours · scores</h4><ul><li>Last Night vers 110 M</li><li>Fiend Hunter 10-15 chaque saison</li><li>Tower of Desire au-delà de 150</li></ul></div>
+    <div class="card"><h4>À 90 jours · stock</h4><ul><li>Tears sur des nœuds SP/CD de supports</li><li>Sparks pour Diana/Helena</li><li>Réserve de Dia pour l'anniversaire de décembre</li></ul></div>
+  </div>
+</section>
+
+<!-- 14 FAQ -->
+<section class="sec" id="faq" data-s>
+  <div class="sec-head"><div class="cart">14</div><div><p class="eyebrow">Questions</p><h2>FAQ : toutes les questions</h2><p class="lede">La recherche en haut trouve directement la bonne question. Clique pour ouvrir la réponse.</p></div></div>
+
+  <h3 class="faq-cat">Débuter et compte</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-debut"><summary>Par quoi je commence ce soir ?</summary><div><p>Section <a href="#maintenant">01</a> : Kyouka +5 et son EX, Burst avec les Sparks collab, stop sur la collab, freebies lancés, tickets violets au 12-Pick, 1 000 Dia de côté, un combat de Last Night.</p></div></details>
+    <details class="faq" id="q-gacha-grise"><summary>Pourquoi le bouton Draw (gacha) est grisé ?</summary><div><p>Il faut finir le Master Pack 1 (Edge of Dimensions).</p></div></details>
+    <details class="faq" id="q-costume"><summary>Quelle différence entre un perso et un costume ?</summary><div><p>Un costume est un skill. Ton premier costume d'un perso débloque le perso. En combat tu places des persos, et chacun utilise un de ses costumes par tour. Les copies montent le costume de +0 à +5.</p></div></details>
+    <details class="faq" id="q-reroll"><summary>Faut-il reroll ?</summary><div><p>Non. L'Infinite Draw se relance à l'infini jusqu'au 5★ voulu : The Curse Celia (fait). Gentle Maid Anastasia et Top Idol Helena sont d'autres choix corrects.</p></div></details>
+    <details class="faq" id="q-pc"><summary>Je peux jouer sur PC ?</summary><div><p>Oui, avec le launcher Windows officiel (BD2StarterSetup.exe). Le compte est partagé avec le mobile. La sortie Steam a été annulée en décembre 2025.</p></div></details>
+    <details class="faq" id="q-noir"><summary>Mes persos sont tout noirs, c'est un bug ?</summary><div><p>Non, c'est le Silhouette Mode : Settings → Graphics → désactive-le.</p></div></details>
+    <details class="faq" id="q-code"><summary>Comment utiliser un code ?</summary><div><p>Accueil → menu ETC (grille en haut à droite) → Register Coupon. Vérifie ton pseudo, colle le code, valide, redémarre le jeu, récupère dans le courrier. Un code par compte.</p></div></details>
+    <details class="faq" id="q-codes"><summary>Où trouver les nouveaux codes ?</summary><div><p>Discord et réseaux officiels de BD2, en général un par mois (valable ~30 jours) et aux grandes fêtes. Aucun code actif n'était listé au 26/09/2026. Tente WAITING4LEGEND.</p></div></details>
+    <details class="faq" id="q-aide"><summary>Comment montrer mon compte pour demander de l'aide ?</summary><div><p>Last Night → Replace → Reset → Confirm, tri « Deployed First », capture d'écran. Pour Potential, Burst et Awakening : onglet Companion avec « View Costume ».</p></div></details>
+    <details class="faq" id="q-archive"><summary>Relire l'onglet Story fait avancer ?</summary><div><p>Non, c'est une archive. La progression se fait en changeant de pack (cartouche).</p></div></details>
+    <details class="faq" id="q-mobs"><summary>Il n'y a plus de monstres dans un Hunting Ground</summary><div><p>Bug connu : une quête principale ou PNJ est active. Abandonne-la.</p></div></details>
+    <details class="faq" id="q-censure"><summary>Le jeu est censuré dans certains pays ?</summary><div><p>Allemagne : sprites modifiés et certaines scènes retirées. Corée : quelques scènes modifiées. Vietnam et Pays-Bas : jeu inaccessible légalement.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Gacha, Dia et tickets</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-prix"><summary>Combien coûte un pull ?</summary><div><p>1 ticket rouge ou 200 Dia. Un 10-pull : 10 tickets ou 2 000 Dia.</p></div></details>
+    <details class="faq" id="q-taux"><summary>Quels sont les taux ?</summary><div><p>5★ 3 % (1,5 % pour le featured), 4★ 14 %, 3★ 83 %. En moyenne un 5★ tous les ~33 pulls, le featured tous les ~67.</p></div></details>
+    <details class="faq" id="q-pity"><summary>Il y a une pity ?</summary><div><p>Deux : un 5★ garanti au 100e pull sans 5★ (n'importe lequel), et 200 Draw Points sur une bannière = le featured au choix. Pire cas pour un featured : 200 pulls (40 000 Dia).</p></div></details>
+    <details class="faq" id="q-points"><summary>Mes Draw Points disparaissent à la fin de la bannière ?</summary><div><p>Ils deviennent du Powder of Hope. Ils ne passent pas d'une bannière à l'autre.</p></div></details>
+    <details class="faq" id="q-tickets"><summary>Tickets violets, rouges, arc-en-ciel : lequel sert à quoi ?</summary><div><p>Violet (Selective) : 12-Pick. Rouge (Draw) : bannières normales, vaut 200 Dia. Arc-en-ciel (Recommended 5★ Selective) : choisis 1 costume parmi 12. Property ticket : un 5★ aléatoire de l'élément choisi.</p></div></details>
+    <details class="faq" id="q-dia-garder"><summary>Combien de Dia je garde ?</summary><div><p>Toujours 1 000 pour le Season Pass de chaque saison. Le reste va aux bannières « Must », et une réserve pour les anniversaires (juin et décembre).</p></div></details>
+    <details class="faq" id="q-collab"><summary>Je continue sur la bannière collab ?</summary><div><p>Non. Tenka et Ren sont notées « Situationnel » et tu ne les veux pas. Tes Draw Points collab deviendront du Powder of Hope.</p></div></details>
+    <details class="faq" id="q-teresse"><summary>Medical Club Teresse vaut le coup ?</summary><div><p>Oui si tu as des tickets rouges : notée « Must », buff ATK + MATK + soin, méta en Fiend Hunter et Last Night. Vise +1. Fin le 7 oct. à 23:50 UTC. Sinon, elle reste accessible au 12-Pick.</p></div></details>
+    <details class="faq" id="q-12pick"><summary>C'est quoi le 12-Pick ?</summary><div><p>Une bannière permanente où tu choisis 12 costumes à taux augmenté, avec les tickets violets. Chaque costume a un « stop » : quand il l'atteint, remplace-le. Liste en <a href="#gacha">07</a>.</p></div></details>
+    <details class="faq" id="q-selecteurs"><summary>Qui prendre avec les Recommended 5★ Selective Tickets ?</summary><div><p>Helena +1 (en premier), Diana +2, Homunculus Lathel +2, puis Seir, Levia, Zenith, Rafina à +0. Avec le pack Mega SALE : Diana +4, Helena +3, Lathel +3.</p></div></details>
+    <details class="faq" id="q-property"><summary>Property ticket : quel élément choisir ?</summary><div><p>Lumière tant que tu n'as pas une bonne Refithea. Plus tard, l'élément qui te donne le plus de costumes utiles.</p></div></details>
+    <details class="faq" id="q-pickup"><summary>C'est quoi une mission pickup ?</summary><div><p>Des récompenses (dont des tickets) quand tu obtiens le costume d'une bannière. Recruter ce costume au Pub pendant sa bannière la valide : 10 Draw Tickets.</p></div></details>
+    <details class="faq" id="q-doublon"><summary>Que devient une copie au-delà de +5 ?</summary><div><p>Du Golden Thread. Il sert à l'unidupe (1 600 par mois).</p></div></details>
+    <details class="faq" id="q-unidupe"><summary>C'est quoi l'unidupe ?</summary><div><p>Costume Selective Enhancement : une copie du costume non limité de ton choix, 1 600 Golden Thread, une fois par mois. Meilleur achat pour atteindre un breakpoint de support.</p></div></details>
+    <details class="faq" id="q-anniv"><summary>Quand sont les grosses périodes de pulls gratuits ?</summary><div><p>Aux anniversaires : juin (anniversaire) et décembre (demi-anniversaire). Le 2,5 anniversaire offrait plus de 500 pulls gratuits et un Infinite Draw spécial. Le prochain est attendu vers mi-décembre 2026 : garde une réserve.</p></div></details>
+    <details class="faq" id="q-gear-banner"><summary>Je pull sur les bannières de gear ?</summary><div><p>Non. Le gear EX se prend quand il est gratuit (comme celui de Kyouka), jamais en tirant.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Pub</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-pub"><summary>Qui recruter au Pub ?</summary><div><p>Diana (Story Pack 10), Liberta (Story Pack 15), Queen of Gluttis Granadair (aléatoire), puis tout costume en bannière (10 tickets), Mamonir, Olstein si rien d'autre.</p></div></details>
+    <details class="faq" id="q-pub-refresh"><summary>Je refresh le Pub avec des Dia ?</summary><div><p>Non. Les persos aléatoires changent toutes les 2 heures gratuitement.</p></div></details>
+    <details class="faq" id="q-contrat"><summary>Que faire des contrats 3★ et 4★ ?</summary><div><p>Ne les utilise pas sur des 3★/4★. Ils servent à monter vers des contrats plus rares via le shop. Garde toujours un contrat 5★ pour Diana.</p></div></details>
+    <details class="faq" id="q-sp15"><summary>Au Story Pack 15, le Pub montre Apostle Blade au lieu de Liberta</summary><div><p>Le slot fixe du Story Pack 15 affiche l'une ou l'autre (50/50). C'est Liberta que tu veux : attends la rotation.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Combat</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-tours"><summary>Comment marchent les tours ?</summary><div><p>Tu joues les tours impairs, l'ennemi les pairs. Tu places et choisis tout avant de lancer. Un costume par perso et par tour.</p></div></details>
+    <details class="faq" id="q-sp"><summary>Comment marche le SP ?</summary><div><p>Une réserve commune qui remonte chaque tour. Chaque costume coûte du SP, les copies le réduisent souvent. En Story, n'active que ce qui tue au tour 1.</p></div></details>
+    <details class="faq" id="q-cible"><summary>Very Front ou Vault ?</summary><div><p>Very Front vise le premier ennemi de la colonne, Vault le deuxième. Colonne vide : le jeu regarde à droite, puis à gauche.</p></div></details>
+    <details class="faq" id="q-chains"><summary>Comment marchent les chains ?</summary><div><p>Chaque hit ajoute une chain, chaque chain +10 % aux dégâts suivants du tour. Plafond 100 (sauf Last Night). Remise à zéro en fin de tour.</p></div></details>
+    <details class="faq" id="q-buffs"><summary>Pourquoi empiler des buffs ATK marche mal ?</summary><div><p>Les buffs d'une même catégorie s'additionnent, les catégories se multiplient. 1 buff ATK + 1 Vulnerability + des chains battent 3 buffs ATK.</p></div></details>
+    <details class="faq" id="q-crit100"><summary>Le Crit Rate au-dessus de 100 % sert à quelque chose ?</summary><div><p>Oui : chaque point au-dessus de 100 % devient 6 points de Crit DMG.</p></div></details>
+    <details class="faq" id="q-pressure"><summary>C'est quoi Pressure ?</summary><div><p>Un debuff qui réduit tes buffs de stats. Les buffs d'Augmentation n'y sont pas sensibles.</p></div></details>
+    <details class="faq" id="q-deathtime"><summary>C'est quoi le Death Time ?</summary><div><p>Après le tour 10, tous les 2 tours, tout le monde gagne +100 % ATK/MATK, perd 100 % DEF/MRES et prend +50 % de dégâts. En Colosseum : tour 5, skills coupés.</p></div></details>
+    <details class="faq" id="q-knockback"><summary>Le knockback sert à quoi ?</summary><div><p>À regrouper les ennemis pour l'AoE et à faire des dégâts de collision basés sur les PV (plafond 50 000). Ne marche pas sur les boss FH/GR.</p></div></details>
+    <details class="faq" id="q-element"><summary>Quel élément bat quoi ?</summary><div><p>Eau bat Feu, Feu bat Vent, Vent bat Eau. Lumière et Ténèbres se battent entre elles. Neutre : ni bonus ni malus. Bonus de base : 50 %.</p></div></details>
+    <details class="faq" id="q-critfish"><summary>C'est quoi « crit fish » ?</summary><div><p>Pause → Restart pour relancer le tour et retenter les crits. Impossible en Tower of Salvation. En event, un restart ne coûte pas de tentative.</p></div></details>
+    <details class="faq" id="q-borrow"><summary>Comment emprunter le perso d'un ami ?</summary><div><p>Ajoute l'ami, entre en combat, Replace → icône de main. 1 emprunt par combat, 3 par ami et par jour.</p></div></details>
+    <details class="faq" id="q-dispel"><summary>Qui retire les buffs ennemis ?</summary><div><p>Scheherazade, Yuri, Eleaneer (dispel), sauf sur une cible avec Immunity.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Teams</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-nb-teams"><summary>Combien de teams dois-je construire ?</summary><div><p>Deux complètes (physique et magique) d'ici 3 mois, avec des buffers universels communs. Une troisième seulement pour le Fiend Hunter haut niveau. Détail mode par mode en <a href="#plan-compte">02</a>.</p></div></details>
+    <details class="faq" id="q-melange"><summary>Je peux mélanger physique et magique ?</summary><div><p>Non : les buffers ATK ne boostent pas le magique et inversement. Seuls Samay, Diana et Medical Club Teresse boostent les deux.</p></div></details>
+    <details class="faq" id="q-placement"><summary>Où placer mes persos ?</summary><div><p>DPS au centre, supports où tu veux. Si ta formation clear, ne change rien. Si tu perds, regarde les lignes rouges d'abord.</p></div></details>
+    <details class="faq" id="q-celia-carry"><summary>Pourquoi Celia n'est pas mon carry ?</summary><div><p>C'est un chainer : elle prépare le gros hit sur les boss longs. En Story, quand tout meurt au tour 1, elle coûte du SP pour rien.</p></div></details>
+    <details class="faq" id="q-wrath-team"><summary>Quelle team pour la Tower of Wrath ?</summary><div><p>Magique : les ennemis sont immunisés au physique. Eclipse, Dalvi, Morpeah avec Helena et Samay.</p></div></details>
+    <details class="faq" id="q-jealousy-team"><summary>Quelle team pour la Tower of Jealousy ?</summary><div><p>Physique : les ennemis sont immunisés au magique. Ta team Kyouka.</p></div></details>
+    <details class="faq" id="q-boss-seul"><summary>Quelle team contre un boss seul ?</summary><div><p>Arines, Homunculus Lathel, Robin Hood Zenith (ou Rigenette), Samay, et un gros DPS mono-cible emprunté (Ventana).</p></div></details>
+    <details class="faq" id="q-ln-team"><summary>Comment remplir les 20 places de Last Night ?</summary><div><p>7-8 buffers, puis 5-7 chainers, puis les DPS. Vise 20-30 chains avant le gros hit. Nebris y est très bonne.</p></div></details>
+    <details class="faq" id="q-fh-team"><summary>Comment construire mes teams de Fiend Hunter ?</summary><div><p>Une Team 1 solide d'abord, adaptée à l'élément du boss et à ses weak points. Team 2 ensuite. Copie un template seulement si tu as les mêmes costumes et copies.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Progression</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-monter"><summary>Qui monter en niveau en premier ?</summary><div><p>Eclipse, puis Dalvi, puis Beach Vacation Morpeah. Kyouka reste à 80. Les supports juste assez pour survivre. Tableau complet en <a href="#plan-compte">02</a>.</p></div></details>
+    <details class="faq" id="q-niv-supports"><summary>Jusqu'à quel niveau monter les supports ?</summary><div><p>40-60 tant qu'ils ne meurent pas, puis 80 quand les combats tapent plus fort.</p></div></details>
+    <details class="faq" id="q-niv-max"><summary>Quel est le niveau max ?</summary><div><p>100, par paliers de 20 débloqués avec des Rank-Up Stars.</p></div></details>
+    <details class="faq" id="q-tears"><summary>Sur qui utiliser mes Tears of Goddess ?</summary><div><p>Sur les nœuds de réduction de SP ou de cooldown des supports que tu joues tout le temps. Jamais sur Kyouka ni sur un DPS au hasard. C'est irréversible.</p></div></details>
+    <details class="faq" id="q-pots-ordre"><summary>Dans quel ordre faire le Potential ?</summary><div><p>Buffers : SP et cooldown, puis durée et zone, puis valeur. DPS : confort d'abord, dégâts en dernier.</p></div></details>
+    <details class="faq" id="q-bond"><summary>Quel bond choisir ?</summary><div><p>Le costume le plus avancé en Potential. En contenu général, évite les bonds à bonus d'élément. En FH/GR, un bond d'élément peut valoir le coup.</p></div></details>
+    <details class="faq" id="q-burst"><summary>Le Burst vaut le coup ?</summary><div><p>Surtout pour les supports et le Fiend Hunter. Stocke tes Sparks et commence par Diana, Helena, Onsen Liberta. Exception : Kyouka avec les Sparks collab.</p></div></details>
+    <details class="faq" id="q-kyouka-burst"><summary>Je Burst Kyouka ?</summary><div><p>Oui avec les Sparks of the Otherworld : ils ne servent qu'aux costumes collab. B1 est prioritaire, B2-B3 ensuite (50K Gold par palier).</p></div></details>
+    <details class="faq" id="q-awaken"><summary>Je fais l'Engraving et l'Awakening maintenant ?</summary><div><p>Non, sauf la tâche du Guide Pass (sur Nebris). C'est très cher : 1 110 Scrolls, 300 Essences, 200 Elixirs et ~3,5 M Gold pour un 5★.</p></div></details>
+    <details class="faq" id="q-awaken-type"><summary>Quel type d'Awakening choisir ?</summary><div><p>Strength pour un DPS physique, Magic pour un DPS magique (12 % + 10 % property), Mind's Eye pour un DPS orienté crit, Protection ou Anti-Magic pour un tank.</p></div></details>
+    <details class="faq" id="q-rapport"><summary>Le Rapport sert à quelque chose ?</summary><div><p>Oui : jusqu'à +50 % de Crit Rate pour tout le compte, des Dia (100 par costume + épisodes). 3 Talks par jour, reset 15:00 UTC.</p></div></details>
+    <details class="faq" id="q-rapport-rep"><summary>Quelle réponse donner en Rapport ?</summary><div><p>Section <a href="#rapport">16</a> : bonnes réponses et boissons préférées de chaque costume disponible. Tape le nom du costume dans la recherche.</p></div></details>
+    <details class="faq" id="q-gifts"><summary>J'achète des gifts de Rapport ?</summary><div><p>Pas en early. Plus tard, au shop Golden Thread une fois unidupe, Sparks et Tears achetés. Optimal : 1 Talk + 50 boissons préférées.</p></div></details>
+    <details class="faq" id="q-niveau-rapport"><summary>Pourquoi mon Rapport est bloqué au niveau 10 ou 15 ?</summary><div><p>Le niveau 15 demande l'Awakening du perso, le 20 le Potential complet du costume.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Gear</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-gear-premier"><summary>Quel gear crafter en premier ?</summary><div><p>Venomous Touch, puis gants et arme UR III pour ton carry (Eclipse). Offensif avant défensif.</p></div></details>
+    <details class="faq" id="q-ur-bloque"><summary>Pourquoi je ne peux pas crafter d'UR ?</summary><div><p>La compétence Crafting doit être Legendary. Crafte des N ou R pour l'EXP et monte le rang avec les livres.</p></div></details>
+    <details class="faq" id="q-fred"><summary>Fred ou Layla pour crafter ?</summary><div><p>Aucune différence. Monte un seul des deux (Fred).</p></div></details>
+    <details class="faq" id="q-refine"><summary>Je dois refiner jusqu'à 24 ?</summary><div><p>Non. Au-delà de 18, les chances s'effondrent. Active « Ends once refining succeeds ».</p></div></details>
+    <details class="faq" id="q-demonter"><summary>Quand démonter du gear ?</summary><div><p>Monte-le à +7 d'abord pour le meilleur rendement de Refining Powder. R donne des Stones, SR/UR des Crystals.</p></div></details>
+    <details class="faq" id="q-gear-event"><summary>J'achète le gear de l'Event Shop ?</summary><div><p>L'UR oui, après les Tears, Sparks, tickets et Crystals : score 24 automatique, utile pour Last Night. Le SR jamais.</p></div></details>
+    <details class="faq" id="q-ex"><summary>Le gear EX vaut quoi ?</summary><div><p>Un tier IV + une stat exclusive. L'UR EX fait environ +10 à 20 % sur un UR IV. À prendre gratuit, pas à tirer.</p></div></details>
+    <details class="faq" id="q-substats"><summary>Quelles substats viser ?</summary><div><p>DPS standard : ATK/MATK sur arme et gants, puis ATK/MATK ou Crit. DPS sur PV : PV et Crit. Supports : ce qui reste, orienté survie. Le calculateur de Souseha donne le ratio exact.</p></div></details>
+    <details class="faq" id="q-stats"><summary>Combien d'ATK et de Crit DMG sur mon DPS ?</summary><div><p>Early : 2 200+ ATK/MATK et 550 %+ Crit DMG. Late : 3 000+ et 450 %+.</p></div></details>
+    <details class="faq" id="q-armure"><summary>Quelle armure et quel casque ?</summary><div><p>Contre le physique : Invulnerable Armor + Helm of Carnage. Contre le magique : Fiend Guard + Radiant Wisdom. Contre les dégâts fixes : sets à PV.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Modes</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-deblocage"><summary>Quel Story Pack débloque quoi ?</summary><div><p>SP3 : Last Night, Path of Adventure, Mirror Wars. SP4 : Evil Castle. SP6 : Golden Colosseum. SP9 : Tower of Salvation. SP10 : Diana au Pub. SP15 : Liberta au Pub.</p></div></details>
+    <details class="faq" id="q-pride"><summary>Comment faire un bon score en Tower of Pride ?</summary><div><p>Ignore les bonus d'élément au début. Prends les points gratuits : PV pleins, fin en 1 tour, 1 M de dégâts en un seul hit (Eclipse). Les rewards quotidiens se récupèrent via le familier.</p></div></details>
+    <details class="faq" id="q-desire"><summary>La Tower of Desire vaut le coup ?</summary><div><p>Énorme : 1 Draw Ticket par étage sur 250 étages, plus 6 250 Dia au total. Team Story jusqu'à 150, puis Diana et le bon élément.</p></div></details>
+    <details class="faq" id="q-salvation"><summary>Comment marche la Tower of Salvation ?</summary><div><p>Roguelike de 4 semaines : tu draftes des costumes, ton gear ne compte pas. Finis au moins la difficulté 1 chaque saison. Améliore Refresh Attempts puis Starting SP.</p></div></details>
+    <details class="faq" id="q-ln-palier"><summary>Quel score viser en Last Night ?</summary><div><p>110 M pour 5 Ancient Crystals + 5 Awakening Elixirs par jour à vie. Même un petit score débloque déjà des rewards.</p></div></details>
+    <details class="faq" id="q-fh-niveau"><summary>Jusqu'à quel niveau pousser le Fiend Hunter ?</summary><div><p>Au moins 10 : 30 Draw Tickets + 1 Tear. Au-delà, du Gold et du Powder.</p></div></details>
+    <details class="faq" id="q-fh-quick"><summary>Comment marche le Quick Battle du Fiend Hunter ?</summary><div><p>Il rejoue ton meilleur score de la veille, mais seulement sur le niveau le plus haut réellement atteint.</p></div></details>
+    <details class="faq" id="q-mw-gagner"><summary>Je dois gagner en Mirror Wars ?</summary><div><p>Non : tu gagnes des Medals même en perdant. Garde au moins Bronze (1 000 points) pour 400 Dia par semaine. Utilise Repeat Battle sur 40.</p></div></details>
+    <details class="faq" id="q-gc-gear"><summary>Le gear compte en Golden Colosseum ?</summary><div><p>Non. Seuls les copies, Potential, Awakening et Burst comptent. Tu places des costumes, pas des persos.</p></div></details>
+    <details class="faq" id="q-gc-combats"><summary>Combien de combats en Golden Colosseum ?</summary><div><p>40 victoires pour toutes les missions (900 Coins), 10 au minimum. 100 tentatives par semaine.</p></div></details>
+    <details class="faq" id="q-gr"><summary>Comment marche le Guild Raid ?</summary><div><p>Boss de guilde sur grille 5×5 avec 7 persos, pendant la semaine 1 du cycle quand une saison est ouverte. Rapporte des Deeds pour le Guild Shop.</p></div></details>
+    <details class="faq" id="q-sw"><summary>Comment marche The Soul Wager ?</summary><div><p>Auto-battler où tu places tuiles, unités et gear sur une grille 7×7. 5 vies par plateau, saison de 8 semaines. Tear en premier au shop.</p></div></details>
+    <details class="faq" id="q-taros"><summary>Le Taros Tactical Manual est dur ?</summary><div><p>Les persos sont imposés, ta progression ne compte pas. Essaie seul puis regarde une vidéo. 2 M Gold, 300K Powder, 40 Sparks par saison.</p></div></details>
+    <details class="faq" id="q-tentatives"><summary>Combien de tentatives d'event par jour ?</summary><div><p>5, remises à 00:00 UTC. Un échec ou un restart ne coûte rien. N'achète pas de tentatives en Dia.</p></div></details>
+    <details class="faq" id="q-eventshop"><summary>Que prendre à l'Event Shop ?</summary><div><p>Les 3 Tears, puis Sparks, 15 tickets, Ancient Crystals, Essences, gear UR + matériaux. Détail en <a href="#shops">11</a>.</p></div></details>
+    <details class="faq" id="q-ancien-shop"><summary>J'ai raté la fin d'un event, le shop est perdu ?</summary><div><p>Non : il reste ouvert 28 jours. Fais glisser le logo de l'event sur l'accueil pour l'ouvrir.</p></div></details>
+    <details class="faq" id="q-diner"><summary>Le Glupy Diner sert à quoi ?</summary><div><p>Revenus passifs (plafond 24 h), Deco Coins, Crystals, et clients spéciaux avec Live2D si tu as leur costume.</p></div></details>
+    <details class="faq" id="q-peche"><summary>La pêche sert à quoi ?</summary><div><p>Un shop mensuel (Gold, Powder, Deco) facile à vider, et un piège passif.</p></div></details>
+    <details class="faq" id="q-territory"><summary>Le Territory est utile ?</summary><div><p>Non pour la progression. Mode détente optionnel.</p></div></details>
+    <details class="faq" id="q-statue"><summary>Où est la Goddess Statue ?</summary><div><p>Dans le pack Fantasia Square. Prie chaque jour.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Timers et resets</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-reset-jour"><summary>À quelle heure est le reset quotidien ?</summary><div><p>00:00 UTC, soit 02:00 à Paris en heure d'été et 01:00 en heure d'hiver (depuis le 25 oct.). L'horloge (section <a href="#horloge">00</a>) le calcule pour toi.</p></div></details>
+    <details class="faq" id="q-reset-semaine"><summary>Quand se termine la semaine de jeu ?</summary><div><p>Le mercredi à 15:00 UTC (Golden Colosseum, Fiend Hunter, Guild Raid). Mirror Wars ferme le dimanche à 15:00 UTC et repart le lundi à 00:00.</p></div></details>
+    <details class="faq" id="q-reset-event"><summary>Quand change l'event ?</summary><div><p>Tous les 14 jours, le jeudi (bannières jusqu'au mercredi 23:50 UTC). Le shop reste 28 jours.</p></div></details>
+    <details class="faq" id="q-reset-mois"><summary>Quand reviennent les achats mensuels des shops ?</summary><div><p>Le 1er du mois à 00:00 UTC.</p></div></details>
+    <details class="faq" id="q-reset-rapport"><summary>Quand reviennent les Talks de Rapport ?</summary><div><p>Chaque jour à 15:00 UTC.</p></div></details>
+    <details class="faq" id="q-cycle"><summary>C'est quoi le cycle de 28 jours ?</summary><div><p>Le rythme des mises à jour : 2 events de 14 jours, Guild Raid en semaine 1, chasse du Fiend Hunter en semaines 2 et 4, Golden Colosseum chaque semaine. Season Pass, Taros et Salvation durent un cycle.</p></div></details>
+  </div>
+
+  <h3 class="faq-cat">Ressources</h3>
+  <div class="faq-list">
+    <details class="faq" id="q-sparks"><summary>Où trouver des Sparks of Rampage ?</summary><div><p>Remnants (200/mois), Event Shop, Mirror Wars, Colosseum, Guild, Golden Thread, Powder, Taros : environ 530 à 585 par mois.</p></div></details>
+    <details class="faq" id="q-ac"><summary>Où trouver des Ancient Crystals ?</summary><div><p>Last Night (jusqu'à 5/jour), Tower of Pride (6-9/jour), Event Shop, Golden Colosseum, Tower of Salvation, Tower of Desire.</p></div></details>
+    <details class="faq" id="q-elixir"><summary>Où trouver des Awakening Elixirs ?</summary><div><p>Last Night (jusqu'à 5/jour), Guild Shop (100/mois), Tower of Salvation, Golden Colosseum.</p></div></details>
+    <details class="faq" id="q-rice"><summary>Comment utiliser le Rice et les Torches ?</summary><div><p>Rice : 6 en Hunting Grounds, le reste en Gold ou Slimes selon le jour de bonus. Torches : Crystals de l'élément que tu montes. Rien ne se garde d'un jour à l'autre, sauf le Rice « payant ».</p></div></details>
+    <details class="faq" id="q-gt"><summary>Comment obtenir du Golden Thread ?</summary><div><p>En tirant une copie d'un costume déjà +5.</p></div></details>
+    <details class="faq" id="q-powder"><summary>Comment obtenir du Powder of Hope ?</summary><div><p>Avec les Draw Points non utilisés à la fin d'une bannière.</p></div></details>
+  </div>
+</section>
+
+<!-- 15 COSTUMES -->
+<section class="sec" id="costumes" data-s>
+  <div class="sec-head"><div class="cart">15</div><div><p class="eyebrow">Base de données</p><h2>Tous les costumes</h2><p class="lede">Chaque costume : élément, type, rôle, effets, hits, coût SP et breakpoints, surnoms, obtention et avis de bannière traduit. Bordure dorée = dans ton compte.</p></div></div>
+  <div class="filters">
+    <input type="text" id="f-txt" placeholder="Filtrer : nom, surnom..." aria-label="Filtrer les costumes">
+    <select id="f-el" aria-label="Élément"><option value="">Tous les éléments</option><option value="eau">Eau</option><option value="feu">Feu</option><option value="vent">Vent</option><option value="lumiere">Lumière</option><option value="tenebres">Ténèbres</option></select>
+    <select id="f-type" aria-label="Type"><option value="">Tous les types</option><option value="phys">Physique</option><option value="mag">Magique</option><option value="none">Sans dégâts</option></select>
+    <select id="f-role" aria-label="Rôle"><option value="">Tous les rôles</option><option>DPS</option><option>Support</option><option>Buffer</option><option>Chainer</option><option>Débuffer</option><option>Tank</option></select>
+    <select id="f-prio" aria-label="Avis"><option value="">Tous les avis</option><option value="must">Must</option><option value="reco">Recommandé</option><option value="situ">Situationnel</option><option value="skip">Skip</option></select>
+    <label class="chk" for="f-moi"><input type="checkbox" id="f-moi"> Mon compte</label>
+    <span class="count" id="f-count"></span>
+  </div>
+  <div class="cos-grid" id="cos-grid"></div>
+  <h3>Tous les persos jouables</h3>
+  <div class="chips" id="persos"></div>
+</section>
+
+<!-- 16 RAPPORT -->
+<section class="sec" id="rapport" data-s>
+  <div class="sec-head"><div class="cart">16</div><div><p class="eyebrow">Rapport</p><h2>Bonnes réponses de Rapport</h2><p class="lede">Réponses en anglais, comme dans le jeu. La question affichée est la dernière réplique avant le choix. Boisson préférée = 40 EXP (20 sinon).</p></div></div>
+  <div id="rap-list"></div>
+</section>
+
+<!-- 17 BOSSES -->
+<section class="sec" id="bosses" data-s>
+  <div class="sec-head"><div class="cart">17</div><div><p class="eyebrow">Fiend Hunter</p><h2>Boss du Fiend Hunter</h2><p class="lede">Toutes les saisons, de la plus récente à la plus ancienne. Dates = semaine de chasse. La ligne dorée est le boss actuel ou le prochain.</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Saison</th><th>Event</th><th>Boss</th><th>Élément</th><th>Élément conseillé</th><th>Chasse</th></tr></thead>
+    <tbody id="boss-rows"></tbody>
+  </table></div>
+</section>
+
+<!-- 18 GLOSSAIRE -->
+<section class="sec" id="glossaire" data-s>
+  <div class="sec-head"><div class="cart">18</div><div><p class="eyebrow">Vocabulaire</p><h2>Glossaire</h2><p class="lede">Mécaniques, ressources, contenus, gear et argot de la commu. Les surnoms de costumes (PWB Refi, H.Lathel...) sont dans les fiches de la section 15.</p></div></div>
+  <div id="gl-list"></div>
+</section>
+
+<!-- 19 BOUTONS -->
+<section class="sec" id="boutons" data-s>
+  <div class="sec-head"><div class="cart">19</div><div><p class="eyebrow">Anti-sèche</p><h2>Tu hésites devant un bouton ?</h2></div></div>
+  <div class="tbl"><table class="mid">
+    <thead><tr><th>Situation</th><th>Réponse</th></tr></thead>
+    <tbody>
+      <tr><td>Ticket violet</td><td><span class="c c-do">12-Pick</span></td></tr>
+      <tr><td>Ticket rouge</td><td><span class="c c-wait">Stock</span> pour une bannière « Must »</td></tr>
+      <tr><td>Dia</td><td>1 000 pour le pass, le reste pour les « Must »</td></tr>
+      <tr><td>Pull collab</td><td><span class="c c-stop">Stop</span></td></tr>
+      <tr><td>Sparks of the Otherworld</td><td><span class="c c-do">Kyouka</span></td></tr>
+      <tr><td>Sparks of Rampage</td><td><span class="c c-wait">Stock</span> puis Diana / Helena</td></tr>
+      <tr><td>Tear of Goddess</td><td><span class="c c-wait">Stock</span> sauf nœud SP/CD de support</td></tr>
+      <tr><td>Golden Thread 1 600</td><td><span class="c c-do">Unidupe</span></td></tr>
+      <tr><td>Powder of Hope 200</td><td>Costume utile uniquement</td></tr>
+      <tr><td>Bannière de gear</td><td><span class="c c-stop">Non</span></td></tr>
+      <tr><td>Refresh du Pub en Dia</td><td><span class="c c-stop">Non</span></td></tr>
+      <tr><td>Contrat sur un 3★/4★</td><td><span class="c c-stop">Non</span></td></tr>
+      <tr><td>Costume de Pub en bannière</td><td><span class="c c-do">Oui</span> 10 tickets</td></tr>
+      <tr><td>Cocktails ou tentatives en Dia</td><td><span class="c c-stop">Non</span></td></tr>
+      <tr><td>Recharge Colosseum 10 Dia</td><td><span class="c c-opt">Option</span></td></tr>
+      <tr><td>Craft SR · gear SR d'event</td><td><span class="c c-stop">Non</span></td></tr>
+      <tr><td>Refine au-delà de 18</td><td><span class="c c-wait">Stop</span></td></tr>
+      <tr><td>Démonter</td><td>Monte à +7 d'abord</td></tr>
+      <tr><td>Engraving / Awakening</td><td>Seulement Nebris (Guide Pass)</td></tr>
+      <tr><td>Nebris niveau 80</td><td><span class="c c-stop">Pas maintenant</span></td></tr>
+      <tr><td>Gifts de Rapport</td><td><span class="c c-stop">Non</span> en early</td></tr>
+      <tr><td>Territory</td><td>Optionnel</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 20 ARGENT -->
+<section class="sec" id="argent" data-s>
+  <div class="sec-head"><div class="cart">20</div><div><p class="eyebrow">Optionnel</p><h2>Si tu mets de l'argent</h2><p class="lede">Rien n'est nécessaire. Valeurs de la feuille « P2W Efficiency » de BotAn (Dia gratuites par dollar).</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Pack</th><th>Prix</th><th>Limite</th><th>Contenu</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b class="name">Mega SALE!!! First Time Countdown</b></td><td class="num">4,29 $</td><td>1 fois</td><td>5 Recommended 5★ + 100 tickets violets</td><td><span class="c c-do">Le meilleur</span></td></tr>
+      <tr><td><b class="name">Monthly Diamond Package 1 / 2</b></td><td class="num">4,29 $ · 7,99 $</td><td>Mensuel</td><td>2 500 / 5 000 Dia</td><td><span class="c c-do">Très bon</span></td></tr>
+      <tr><td><b class="name">Moonrise Special Shop III</b></td><td class="num">7,99 $</td><td>×3, jusqu'au 7 oct.</td><td>10 tickets, 1 000 Dia, Crystals, set IV</td><td><span class="c c-do">Très bon</span></td></tr>
+      <tr><td><b class="name">Renew Special Dash</b></td><td class="num">14,99 à 42,99 $</td><td>1 fois</td><td>Tickets, Dia, sets</td><td><span class="c c-opt">Bon</span> s'il est proposé</td></tr>
+      <tr><td><b class="name">Paid Dia simples</b></td><td>-</td><td>-</td><td>Dia payantes</td><td><span class="c c-neu">Moyen</span></td></tr>
+      <tr><td><b class="name">Daily Package / PICK UP</b></td><td>-</td><td>-</td><td>Quelques tickets</td><td><span class="c c-stop">Faible</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 21 SOURCES -->
+<section class="sec" id="sources" data-s>
+  <div class="sec-head"><div class="cart">21</div><div><p class="eyebrow">Fiabilité</p><h2>Sources et mise à jour</h2><p class="lede">Les bases (costumes, Rapport, boss, glossaire, calendrier) se régénèrent avec <code>python scripts/build_data.py</code> depuis les sources ci-dessous.</p></div></div>
+  <div class="tbl"><table class="wide">
+    <thead><tr><th>Source</th><th>Utilisée pour</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://botan14xd.github.io/BD2-Overview/" target="_blank" rel="noopener">Tactical Compendium (BotAn)</a></td><td>Mécaniques, gear, Burst, modes, shops, calendrier, fiches costumes, Rapport, boss, glossaire</td></tr>
+      <tr><td><a href="https://zormolo.github.io/BD2-Banner-Recommendation/" target="_blank" rel="noopener">Banner Recommendation</a></td><td>Bannières actives et avis</td></tr>
+      <tr><td><a href="https://browndust2.miraheze.org/wiki/Brown_Dust_2_Wiki" target="_blank" rel="noopener">Wiki Miraheze</a></td><td>Freebies, Last Night, Awakening, pêche</td></tr>
+      <tr><td><a href="https://dotgg.gg/brown-dust-2/33rd-developer-notes-2nd-anniversary-update-notice/" target="_blank" rel="noopener">Dev Notes</a></td><td>Freebies permanents</td></tr>
+      <tr><td><a href="https://dotgg.gg/brown-dust-2/freebie-guide-eternal-chains-kyouka-uzen-limited-collab/" target="_blank" rel="noopener">DotGG</a></td><td>Kyouka, Nebris, Last Night, Engraving, routine</td></tr>
+      <tr><td><a href="https://browndust2-db.souseha.com/en/talents" target="_blank" rel="noopener">Souseha DB</a></td><td>Capacités de terrain, calculateurs</td></tr>
+      <tr><td><a href="https://browndust2.gitbook.io/probabilitydetails_en/other-probabilities/pub-recruitment-appearance" target="_blank" rel="noopener">Gitbook officiel</a></td><td>Pub, craft, refine</td></tr>
+      <tr><td><a href="https://docs.google.com/spreadsheets/d/19X4TjCjyrl6XV1jCh6kRoChubKjL9xBZbfyh9SB2egg/edit" target="_blank" rel="noopener">P2W Efficiency (BotAn)</a></td><td>Valeur des packs</td></tr>
+    </tbody>
+  </table></div>
+  <footer>Guide Parfait V10 · audit du 29/09/2026 · données générées le <span id="maj">-</span>. Remplace toutes les versions précédentes.</footer>
+</section>
+
+</main>
+</div>
+
+<script src="data/calendrier.js"></script>
+<script src="data/fiend-hunter.js"></script>
+<script src="data/costumes.js"></script>
+<script src="data/persos.js"></script>
+<script src="data/glossaire.js"></script>
+<script src="data/rapport.js"></script>
+<script>
+(function () {
+  'use strict';
+  var BD = window.BD2 || {};
+  var J = 864e5, H = 36e5;
+  var EL = { eau: 'Eau', feu: 'Feu', vent: 'Vent', lumiere: 'Lumière', tenebres: 'Ténèbres' };
+  var CONTRE = { feu: 'eau', eau: 'vent', vent: 'feu', lumiere: 'tenebres', tenebres: 'lumiere' };
+  var PRIO = { must: ['c-new', 'Must'], reco: ['c-do', 'Recommandé'], situ: ['c-wait', 'Situationnel'], skip: ['c-stop', 'Skip'] };
+  var MODES = { gen: 'Général', fh: 'Fiend Hunter', gr: 'Guild Raid', ln: 'Last Night', tos: 'Salvation', mw: 'Mirror Wars', gc: 'Colosseum' };
+
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function slug(s) { return norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+  function el(code) { return code ? '<span class="el el-' + code + '">' + EL[code] + '</span>' : ''; }
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } }
+  };
+
+  /* ---------------- Horloge ---------------- */
+  var fmt;
+  try { fmt = new Intl.DateTimeFormat('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); }
+  catch (e) { fmt = { format: function (d) { return d.toISOString().slice(0, 16).replace('T', ' ') + ' UTC'; } }; }
+  function quand(t) { return fmt.format(new Date(t)); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function reste(ms) {
+    if (ms <= 0) return 'maintenant';
+    var s = Math.floor(ms / 1000), d = Math.floor(s / 86400); s -= d * 86400;
+    var h = Math.floor(s / 3600); s -= h * 3600; var m = Math.floor(s / 60); s -= m * 60;
+    return (d ? d + ' j ' : '') + pad(h) + ':' + pad(m) + ':' + pad(s);
+  }
+  function dayStart(t) { var d = new Date(t); return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()); }
+  function nextHour(now, h) { var t = dayStart(now) + h * H; return t > now ? t : t + J; }
+  function nextWeekday(now, wd, h) { var d = new Date(now); var t = dayStart(now) + h * H + ((wd - d.getUTCDay() + 7) % 7) * J; return t > now ? t : t + 7 * J; }
+  var CAL = BD.calendrier || { ancre: '2026-07-30T00:00:00Z', cycle: 28, decalages: [], bannieres: [] };
+  var ANCRE = Date.parse(CAL.ancre), CYC = (CAL.cycle || 28) * J;
+  function cycleAt(now) { var c = Math.floor((now - ANCRE) / CYC); var start = ANCRE + c * CYC; var w = Math.floor((now - start) / (7 * J)) + 1; return { c: c, start: start, week: w, weekStart: start + (w - 1) * 7 * J }; }
+  function decalage(prefix, now) {
+    var l = CAL.decalages || [];
+    for (var i = 0; i < l.length; i++) {
+      var o = l[i]; if (o.id.indexOf(prefix) !== 0) continue;
+      var a = Date.parse(o.debut), b = Date.parse(o.fin);
+      if (now >= a && now < b) return { debut: a, cloture: Date.parse(o.cloture), fin: b };
+    }
+    return null;
+  }
+  function semaine(ws) { return { debut: ws, cloture: ws + 6 * J + 15 * H, fin: ws + 7 * J }; }
+  function jourISO(t) { return new Date(t).toISOString().slice(0, 10); }
+  function bossAt(now) {
+    var l = BD.bosses || [], day = jourISO(now), cur = null, next = null;
+    l.forEach(function (b) { if (b.debut <= day && day <= b.fin) cur = b; if (b.debut > day && (!next || b.debut < next.debut)) next = b; });
+    return { cur: cur, next: next };
+  }
+  function eventAt(now) {
+    var k = Math.floor((now - ANCRE) / (14 * J)); var a = ANCRE + k * 14 * J, b = a + 14 * J, nom = '';
+    (BD.bosses || []).forEach(function (x) { var t = Date.parse(x.debut + 'T00:00:00Z'); if (t >= a && t < b && x.event) nom = x.event; });
+    return { debut: a, fin: b, shop: a + 28 * J, nom: nom };
+  }
+  function fhAt(now) {
+    var o = decalage('fiend', now), cy = cycleAt(now), s;
+    if (o) { s = o; s.phase = 'chasse'; }
+    else if (cy.week === 2 || cy.week === 4) { s = semaine(cy.weekStart); s.phase = 'chasse'; }
+    else { s = { phase: 'prep', debut: cy.weekStart, fin: cy.weekStart + 7 * J }; }
+    return s;
+  }
+  function row(label, note, target, etat, cls) {
+    return { label: label, note: note, target: target, etat: etat || '', cls: cls || '' };
+  }
+  function lignes(now) {
+    var out = [], cy = cycleAt(now);
+    out.push(row('Reset quotidien', 'Missions, tentatives d\'event, cocktails, Rice, Torches, free pulls, Last Night et Evil Castle', nextHour(now, 0)));
+    out.push(row('Talks de Rapport', '3 nouvelles Talks', nextHour(now, 15)));
+    out.push(row('Fin de la semaine de jeu', 'Missions hebdo, clôtures Colosseum, Fiend Hunter, Guild Raid', nextWeekday(now, 3, 15)));
+    var d = new Date(now);
+    if (d.getUTCDay() === 0 && d.getUTCHours() >= 15) out.push(row('Mirror Wars', 'Clôture en cours, pas d\'attaque. Nouvelle saison dans', nextWeekday(now, 1, 0), 'Clôture', 'hot'));
+    else out.push(row('Mirror Wars', 'Fin de saison (Dia selon ton rang). Fais tes 40 combats avant.', nextWeekday(now, 0, 15), 'En cours'));
+    var gc = decalage('golden', now) || semaine(cy.weekStart);
+    if (now < gc.cloture) out.push(row('Golden Colosseum', 'Clôture de la saison : 10 victoires minimum avant', gc.cloture, 'En cours'));
+    else out.push(row('Golden Colosseum', 'Clôture en cours. Nouvelle saison dans', gc.fin, 'Clôture', 'hot'));
+    var fh = fhAt(now), bo = bossAt(now);
+    var boss = fh.phase === 'chasse' ? (bo.cur || bo.next) : bo.next;
+    var bossTxt = boss ? boss.nom + ' (' + (EL[boss.el] || '?') + ')' + (CONTRE[boss.el] ? ' : prends du ' + EL[CONTRE[boss.el]] : '') : 'Boss à venir';
+    if (fh.phase === 'chasse' && now < fh.cloture) out.push(row('Fiend Hunter : chasse', bossTxt + '. Fin de la chasse dans', fh.cloture, 'Chasse', 'hot'));
+    else if (fh.phase === 'chasse') out.push(row('Fiend Hunter : clôture', 'Prochaine phase dans', fh.fin, 'Clôture'));
+    else out.push(row('Fiend Hunter : entraînement', bossTxt + '. La chasse commence dans', fh.fin, 'Entraînement', 'good'));
+    if (cy.week === 1) { var gr = semaine(cy.weekStart); if (now < gr.cloture) out.push(row('Guild Raid', 'Fenêtre de raid (si une saison est ouverte). Clôture dans', gr.cloture, 'En cours', 'hot')); else out.push(row('Guild Raid', 'Clôture. Prochaine fenêtre dans', cy.start + CYC, 'Clôture')); }
+    else out.push(row('Guild Raid', 'Prochaine fenêtre (semaine 1 du cycle, si une saison est annoncée)', cy.start + CYC, 'Hors raid'));
+    var ev = eventAt(now);
+    out.push(row('Season Event' + (ev.nom ? ' : ' + ev.nom : ''), 'Fin de l\'event (les bannières finissent vers 23:50 UTC la veille)', ev.fin, 'En cours'));
+    out.push(row('Shop de l\'event précédent', 'Ferme en même temps que l\'event actuel change', ev.fin));
+    out.push(row('Shop de l\'event actuel', 'Reste ouvert 14 jours après l\'event', ev.shop));
+    out.push(row('Saison de 28 jours', 'Season Pass, Taros, Mirror Wars Shop. Tower of Salvation clôture 9 h avant.', cy.start + CYC));
+    var b = Math.floor((now - ANCRE) / (2 * CYC)), swEnd = ANCRE + (b + 1) * 2 * CYC;
+    if (now < swEnd - 9 * H) out.push(row('The Soul Wager', 'Clôture de la saison de 8 semaines (vide le shop avant)', swEnd - 9 * H, 'En cours'));
+    else out.push(row('The Soul Wager', 'Clôture en cours. Nouvelle saison dans', swEnd, 'Clôture', 'hot'));
+    var m = new Date(now); out.push(row('Boutiques mensuelles', 'Unidupe, Guild, Evil Castle, Colosseum, Remnants, pêche', Date.UTC(m.getUTCFullYear(), m.getUTCMonth() + 1, 1)));
+    (CAL.bannieres || []).forEach(function (bn) {
+      var a = Date.parse(bn.debut), z = Date.parse(bn.fin); if (now >= z) return;
+      var p = PRIO[bn.prio] || ['c-neu', ''];
+      if (now < a) out.push(row('Bannière : ' + bn.nom, 'Commence dans · avis : ' + p[1], a, 'À venir'));
+      else out.push(row('Bannière : ' + bn.nom, 'Avis : ' + p[1] + '. ' + (bn.texte || ''), z, p[1], bn.prio === 'must' ? 'hot' : ''));
+    });
+    return out;
+  }
+  var rowsBox = $('#clock-rows'), nowBox = $('#clock-now');
+  function renderClock() {
+    var now = Date.now(), cy = cycleAt(now), ev = eventAt(now), fh = fhAt(now);
+    var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) { }
+    nowBox.innerHTML = '<span>Il est <b>' + esc(quand(now)) + '</b>' + (tz ? ' (' + esc(tz) + ')' : '') + '</span>' +
+      '<span>Cycle : <b>semaine ' + cy.week + ' sur 4</b></span>' +
+      (ev.nom ? '<span>Event : <b>' + esc(ev.nom) + '</b></span>' : '') +
+      '<span>Fiend Hunter : <b>' + (fh.phase === 'chasse' ? 'chasse' : 'entraînement') + '</b></span>';
+    rowsBox.innerHTML = lignes(now).map(function (r) {
+      return '<div class="tm ' + r.cls + '"><div class="lab"><b>' + esc(r.label) + (r.etat ? ' <span class="c ' + (r.cls === 'hot' ? 'c-stop' : r.cls === 'good' ? 'c-do' : 'c-neu') + '">' + esc(r.etat) + '</span>' : '') + '</b><small>' + esc(r.note) + '</small></div>' +
+        '<div class="val"><span class="cd">' + reste(r.target - now) + '</span><span class="at">' + esc(quand(r.target)) + '</span></div></div>';
+    }).join('');
+  }
+  function renderCycle() {
+    var now = Date.now(), cy = cycleAt(now), tb = $('#cycle-rows'); if (!tb) return;
+    var bo = BD.bosses || [];
+    var html = '';
+    for (var w = 1; w <= 4; w++) {
+      var ws = cy.start + (w - 1) * 7 * J, we = ws + 6 * J;
+      var items = ['Golden Colosseum'];
+      if (w === 1 || w === 3) items.unshift('Nouvel event', 'Fiend Hunter : entraînement');
+      if (w === 1) items.push('Guild Raid');
+      if (w === 2 || w === 4) {
+        var day = jourISO(ws + J), bs = bo.filter(function (b) { return b.debut <= day && day <= b.fin; })[0];
+        items.unshift('Fiend Hunter : chasse' + (bs ? ' (' + bs.nom + ', ' + (EL[bs.el] || '') + ')' : ''));
+      }
+      html += '<tr' + (w === cy.week ? ' class="cur"' : '') + '><td class="num">' + w + '</td><td>' + jourISO(ws).slice(5).split('-').reverse().join('/') + ' → ' + jourISO(we).slice(5).split('-').reverse().join('/') + '</td><td>' + esc(items.join(' · ')) + '</td></tr>';
+    }
+    tb.innerHTML = html;
+  }
+  var PERSO_T = [
+    { id: 'diner', nom: 'Glupy Diner', dur: 24 * H, note: 'Plafond des revenus passifs' },
+    { id: 'piege', nom: 'Piège à poissons', dur: 24 * H, note: 'Plafond de 24 h' },
+    { id: 'territory', nom: 'Helpers du Territory', dur: 24 * H, note: 'Plafond de 24 h' },
+    { id: 'pub', nom: 'Rotation du Pub', dur: 2 * H, note: 'Nouveaux persos aléatoires' }
+  ];
+  function renderPerso() {
+    var box = $('#perso-timers'); if (!box) return;
+    var st = store.get('bd2v10:minuteurs', {}), now = Date.now();
+    box.innerHTML = PERSO_T.map(function (p) {
+      var t = st[p.id], fin = t ? t + p.dur : 0;
+      var txt = !t ? 'Pas lancé' : (fin > now ? reste(fin - now) : 'Prêt');
+      return '<div><b>' + esc(p.nom) + '</b><span class="cd">' + txt + '</span><small class="muted">' + esc(p.note) + (t ? ' · prêt ' + esc(quand(fin)) : '') + '</small>' +
+        '<span class="row"><button class="btn main" type="button" data-t="' + p.id + '">Fait maintenant</button><button class="btn" type="button" data-x="' + p.id + '">Effacer</button></span></div>';
+    }).join('');
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-t],[data-x]') : null; if (!b) return;
+    var st = store.get('bd2v10:minuteurs', {});
+    if (b.hasAttribute('data-t')) st[b.getAttribute('data-t')] = Date.now(); else delete st[b.getAttribute('data-x')];
+    store.set('bd2v10:minuteurs', st); renderPerso();
+  });
+  function tick() { renderClock(); renderPerso(); }
+  renderCycle(); tick(); setInterval(tick, 1000);
+
+  /* ---------------- Routine ---------------- */
+  var SEM0 = Date.UTC(2026, 6, 29, 15);
+  var PERIODE = {
+    jour: function (n) { var p = Math.floor(n / J); return { p: p, next: (p + 1) * J }; },
+    semaine: function (n) { var p = Math.floor((n - SEM0) / (7 * J)); return { p: p, next: SEM0 + (p + 1) * 7 * J }; },
+    event: function (n) { var p = Math.floor((n - ANCRE) / (14 * J)); return { p: p, next: ANCRE + (p + 1) * 14 * J }; },
+    mois: function (n) { var d = new Date(n); return { p: d.getUTCFullYear() * 12 + d.getUTCMonth(), next: Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1) }; },
+    saison: function (n) { var p = Math.floor((n - ANCRE) / CYC); return { p: p, next: ANCRE + (p + 1) * CYC }; },
+    sw: function (n) { var p = Math.floor((n - ANCRE) / (2 * CYC)); return { p: p, next: ANCRE + (p + 1) * 2 * CYC }; },
+    perm: function () { return { p: 'perm', next: 0 }; }
+  };
+  var lists = $$('.ck').map(function (box) {
+    var c = box.getAttribute('data-cadence'), key = 'bd2v10:ck:' + c;
+    var boxes = $$('input[type=checkbox]', box), prog = $('.prog', box), bar = $('.bar i', box), when = $('.when', box);
+    function sync(force) {
+      var per = PERIODE[c](Date.now()), st = store.get(key, null);
+      if (!st || st.p !== per.p || force) {
+        if (st && st.p !== per.p) boxes.forEach(function (b) { b.checked = false; });
+        save(per);
+      }
+      if (when && per.next) when.textContent = 'Remise à zéro : ' + quand(per.next);
+      return per;
+    }
+    function save(per) {
+      per = per || PERIODE[c](Date.now());
+      var on = boxes.filter(function (b) { return b.checked; });
+      prog.textContent = on.length + '/' + boxes.length;
+      bar.style.width = (boxes.length ? Math.round(on.length / boxes.length * 100) : 0) + '%';
+      store.set(key, { p: per.p, ids: on.map(function (b) { return b.id; }) });
+    }
+    var st = store.get(key, null), per = PERIODE[c](Date.now());
+    if (st && st.p === per.p && st.ids) boxes.forEach(function (b) { b.checked = st.ids.indexOf(b.id) > -1; });
+    boxes.forEach(function (b) { b.addEventListener('change', function () { save(); }); });
+    $('.reset', box).addEventListener('click', function () { boxes.forEach(function (b) { b.checked = false; }); save(); });
+    sync(); save();
+    return sync;
+  });
+  setInterval(function () { lists.forEach(function (s) { s(); }); }, 30000);
+
+  /* ---------------- Bases de données ---------------- */
+  var COS = BD.costumes || [];
+  var grid = $('#cos-grid');
+  function cosHTML(c) {
+    var type = c.type === 'phys' ? '<span class="t t-phys">Phys</span>' : c.type === 'mag' ? '<span class="t t-mag">Mag</span>' : '<span class="t t-uni">Sans dégâts</span>';
+    var sp = c.sp != null ? c.sp + ' SP' + (c.spBreak && c.spBreak.length ? ' (' + c.spBreak.join(', ') + ')' : '') : '';
+    var h = '<article class="cos' + (c.moi ? ' moi' : '') + '" id="c-' + esc(c.id) + '">' +
+      '<div class="top"><div><h4>' + esc(c.nom) + '</h4><span class="who">' + esc(c.perso) + (c.moi ? ' · dans ton compte' : c.persoMoi ? ' · perso débloqué' : '') + '</span></div><div class="tags">' + el(c.el) + ' ' + type + '</div></div>' +
+      '<p><span class="k">Rôle</span>' + esc(c.roles.join(' · ')) + (c.hits != null ? ' · ' + c.hits + ' hit' + (c.hits > 1 ? 's' : '') : '') + (sp ? ' · ' + esc(sp) : '') + '</p>';
+    if (c.effets && c.effets.length) h += '<p><span class="k">Effets</span>' + esc(c.effets.join(' · ')) + '</p>';
+    if (c.usage) h += '<p><span class="k">Usage</span>' + esc(c.usage) + '</p>';
+    if (c.pots && c.pots.length) h += '<p><span class="k">Potential</span>' + esc(c.pots.join(' · ')) + '</p>';
+    if (c.obtention || (c.tags && c.tags.length)) h += '<p><span class="k">Obtention</span>' + esc([c.obtention].concat(c.tags || []).filter(Boolean).join(' · ')) + '</p>';
+    if (c.avis) {
+      var p = PRIO[c.avis.prio] || ['c-neu', c.avis.prio];
+      h += '<div class="avis"><p><span class="c ' + p[0] + '">' + esc(p[1]) + '</span> <span class="k">Avis bannière ' + esc(c.avis.date || '') + '</span></p>';
+      if (c.avis.texte) h += '<p>' + esc(c.avis.texte) + '</p>';
+      if (c.avis.bp && c.avis.bp.length) h += '<p><span class="k">Breakpoints</span>' + esc(c.avis.bp.join(' · ')) + '</p>';
+      if (c.avis.modes) h += '<div class="modes">' + Object.keys(c.avis.modes).map(function (k) { return '<span>' + esc(MODES[k] || k) + ' : ' + esc(c.avis.modes[k]) + '</span>'; }).join('') + '</div>';
+      h += '</div>';
+    }
+    if (c.alias && c.alias.length) h += '<p class="alias">Surnoms : ' + esc(c.alias.join(', ')) + '</p>';
+    return h + '</article>';
+  }
+  if (grid) grid.innerHTML = COS.map(cosHTML).join('');
+  var cards = $$('.cos', grid);
+  var fTxt = $('#f-txt'), fEl = $('#f-el'), fType = $('#f-type'), fRole = $('#f-role'), fPrio = $('#f-prio'), fMoi = $('#f-moi'), fCount = $('#f-count');
+  var cosText = COS.map(function (c) { return norm([c.nom, c.perso, (c.alias || []).join(' ')].join(' ')); });
+  function filtrer() {
+    var t = norm(fTxt.value.trim()), n = 0;
+    COS.forEach(function (c, i) {
+      var ok = (!t || cosText[i].indexOf(t) > -1) && (!fEl.value || c.el === fEl.value) &&
+        (!fType.value || (fType.value === 'none' ? !c.type : c.type === fType.value)) &&
+        (!fRole.value || c.roles.indexOf(fRole.value) > -1) && (!fPrio.value || (c.avis && c.avis.prio === fPrio.value)) &&
+        (!fMoi.checked || c.moi || c.persoMoi);
+      cards[i].hidden = !ok; if (ok) n++;
+    });
+    fCount.textContent = n + ' costume' + (n > 1 ? 's' : '');
+  }
+  [fTxt, fEl, fType, fRole, fPrio, fMoi].forEach(function (x) { if (x) x.addEventListener(x.tagName === 'INPUT' && x.type === 'text' ? 'input' : 'change', filtrer); });
+  if (fCount) filtrer();
+  function resetFiltres() { fTxt.value = ''; fEl.value = ''; fType.value = ''; fRole.value = ''; fPrio.value = ''; fMoi.checked = false; filtrer(); }
+
+  var persosBox = $('#persos');
+  if (persosBox) persosBox.innerHTML = (BD.persos || []).map(function (p) { return '<span class="perso-chip" id="p-' + slug(p.nom) + '">' + el(p.el) + ' ' + esc(p.nom) + (p.alias && p.alias.length ? ' <small class="muted">(' + esc(p.alias.join(', ')) + ')</small>' : '') + '</span>'; }).join('');
+
+  var rapBox = $('#rap-list');
+  if (rapBox) rapBox.innerHTML = (BD.rapport || []).map(function (r) {
+    return '<details class="rap" id="r-' + slug(r.costume) + '"><summary><b>' + esc(r.costume) + '</b><span>Boissons préférées : ' + esc(r.boissons.join(', ') || '?') + '</span></summary>' +
+      '<div class="tbl"><table class="mid"><thead><tr><th class="num">N°</th><th>Situation</th><th>Bonne réponse</th><th>Mauvaise</th></tr></thead><tbody>' +
+      r.rencontres.map(function (x) { return '<tr><td class="num">' + x.n + '</td><td>' + esc(x.q) + '</td><td class="ok">' + esc(x.ok) + '</td><td class="ko">' + esc(x.ko) + '</td></tr>'; }).join('') +
+      '</tbody></table></div></details>';
+  }).join('');
+
+  var bossBox = $('#boss-rows');
+  if (bossBox) {
+    var bo = bossAt(Date.now()), mark = bo.cur || bo.next;
+    bossBox.innerHTML = (BD.bosses || []).slice().reverse().map(function (b, i) {
+      var c = CONTRE[b.el];
+      return '<tr id="b-' + b.saison + '-' + i + '"' + (b === mark ? ' class="cur"' : '') + '><td class="num">' + b.saison + '</td><td>' + esc(b.event || '-') + '</td><td><b class="name">' + esc(b.nom) + '</b>' + (b === mark ? ' <span class="c c-new">' + (bo.cur ? 'Actuel' : 'Prochain') + '</span>' : '') + '</td><td>' + el(b.el) + '</td><td>' + (c ? el(c) : '-') + '</td><td>' + esc(b.debut.split('-').reverse().join('/')) + ' → ' + esc(b.fin.split('-').reverse().join('/')) + '</td></tr>';
+    }).join('');
+  }
+
+  var GL = BD.glossaire || [];
+  var glBox = $('#gl-list');
+  if (glBox) {
+    var cats = ['Mécanique', 'Ressource', 'Contenu', 'Gear', 'Divers'];
+    glBox.innerHTML = cats.map(function (cat) {
+      var items = GL.filter(function (g) { return g.cat === cat; }); if (!items.length) return '';
+      return '<h3>' + esc(cat === 'Mécanique' ? 'Mécaniques' : cat === 'Ressource' ? 'Ressources' : cat === 'Contenu' ? 'Contenus' : cat) + '</h3><div class="gl-grid">' +
+        items.map(function (g) { return '<div class="gl" id="g-' + slug(g.terme) + '"><b>' + esc(g.terme) + '</b>' + (g.alias && g.alias.length ? '<small>' + esc(g.alias.join(', ')) + '</small>' : '') + '<p>' + esc(g.def) + '</p></div>'; }).join('') + '</div>';
+    }).join('');
+  }
+  var gearRows = $('#gear-rows');
+  if (gearRows) gearRows.innerHTML = GL.filter(function (g) { return g.cat === 'Gear' && g.terme.indexOf('Exclusive') < 0; }).map(function (g) { return '<tr><td><b class="name">' + esc(g.terme) + '</b></td><td>' + esc(g.def) + '</td></tr>'; }).join('');
+  var maj = $('#maj'); if (maj && CAL.maj) maj.textContent = CAL.maj.split('-').reverse().join('/');
+
+  /* ---------------- Recherche ---------------- */
+  var STOP = ' a au aux avec ce ces comment dans de des du elle en est et il je la le les leur lui ma mais me mes mon ne on ou par pas pour qu que quel quelle quels quoi sa se ses son sur ta te tes ton tu un une vos votre vous y est-ce faut dois puis ';
+  var SYN = {
+    larme: ['tear'], larmes: ['tear'], tear: ['larme'], tears: ['tear'], etincelle: ['spark'], etincelles: ['spark'], spark: ['etincelle'],
+    fil: ['thread'], poudre: ['powder'], espoir: ['hope'], cristal: ['crystal'], cristaux: ['crystal'], crystal: ['cristal'],
+    rouge: ['draw ticket', 'rouge'], violet: ['selective', 'violet'], boutique: ['shop'], magasin: ['shop'], shop: ['boutique'],
+    tour: ['tower', 'tour'], orgueil: ['pride'], desir: ['desire'], colere: ['wrath'], jalousie: ['jealousy'], chateau: ['castle'],
+    taverne: ['pub'], bar: ['pub'], contrat: ['contract'], contrats: ['contract'], eveil: ['awakening'], gravure: ['engraving'],
+    potentiel: ['potential', 'pots'], potentiels: ['potential', 'pots'], equipement: ['gear'], stuff: ['gear'], arme: ['weapon', 'arme'],
+    gants: ['glove', 'gants'], casque: ['helm', 'casque'], armure: ['armor', 'armure'], accessoire: ['accessory', 'accessoire'],
+    invocation: ['summon'], bouclier: ['energy guard', 'bouclier'], esquive: ['evade', 'esquive'], provocation: ['taunt'],
+    eau: ['water', 'eau'], feu: ['fire', 'feu'], vent: ['wind', 'vent'], lumiere: ['light', 'lumiere'], tenebres: ['dark', 'tenebres'],
+    physique: ['phys', 'physique'], magique: ['mag', 'magique'], reset: ['remise', 'reset'], heure: ['utc', 'heure'], timer: ['reset', 'horloge'],
+    soin: ['heal', 'soin'], degats: ['damage', 'degats'], critique: ['crit'], guilde: ['guild', 'guilde'], colisee: ['colosseum'],
+    miroir: ['mirror'], peche: ['fishing', 'peche'], restaurant: ['diner'], diamant: ['dia'], diamants: ['dia'], niveau: ['level', 'niveau'],
+    chasse: ['hunter', 'chasse'], raid: ['raid'], collab: ['collab'], gratuit: ['free', 'gratuit'], quotidien: ['daily', 'quotidien', 'jour']
+  };
+  var KIND = { faq: ['c-new', 'FAQ'], cos: ['c-do', 'Costume'], rap: ['c-opt', 'Rapport'], boss: ['c-wait', 'Boss'], gl: ['c-neu', 'Glossaire'], guide: ['c-neu', 'Guide'], tm: ['c-stop', 'Horloge'] };
+  var KIND_MOTS = { faq: 'faq question', cos: 'costume perso', rap: 'rapport talk reponse boisson', boss: 'boss fiend hunter', gl: 'glossaire definition', guide: '', tm: 'horloge timer reset' };
+  var INDEX = [];
+  function secTitle(n) { var s = n.closest('.sec'); var h = s && s.querySelector('h2'); return h ? h.textContent : ''; }
+  function add(node, kind, title) {
+    var txt = node.textContent.replace(/\s+/g, ' ').trim(); if (!txt) return;
+    if (!node.id) node.id = 'x-' + INDEX.length;
+    INDEX.push({ node: node, kind: kind, title: title || txt.slice(0, 80), n: ' ' + norm(txt + ' ' + KIND_MOTS[kind]), nt: ' ' + norm(title || ''), txt: txt, sec: secTitle(node) });
+  }
+  function trTitle(tr) {
+    if (tr.closest('#cycle-rows')) return 'Semaine ' + tr.cells[0].textContent + ' du cycle : ' + tr.cells[1].textContent;
+    if (tr.cells.length > 1 && tr.cells[0].querySelector('.c') && tr.cells[0].textContent.length < 30) return tr.cells[1].textContent;
+    return tr.cells[0].textContent;
+  }
+  function buildIndex() {
+    INDEX = [];
+    $$('details.faq').forEach(function (d) { add(d, 'faq', d.querySelector('summary').textContent); });
+    $$('.cos').forEach(function (c) { add(c, 'cos', c.querySelector('h4').textContent); });
+    $$('.rap').forEach(function (d) {
+      var nom = d.querySelector('summary b').textContent;
+      add(d.querySelector('summary'), 'rap', nom + ' : boissons');
+      $$('tbody tr', d).forEach(function (tr) { add(tr, 'rap', nom + ' · rencontre ' + tr.cells[0].textContent); });
+    });
+    $$('#boss-rows tr').forEach(function (tr) { add(tr, 'boss', 'Saison ' + tr.cells[0].textContent + ' : ' + tr.cells[2].textContent); });
+    $$('.gl').forEach(function (g) { add(g, 'gl', g.querySelector('b').textContent); });
+    $$('.perso-chip').forEach(function (p) { add(p, 'gl', 'Perso : ' + p.textContent); });
+    var skip = '#faq, #costumes, #rapport, #bosses, #glossaire';
+    $$('main .sec').forEach(function (sec) {
+      if (sec.matches(skip)) return;
+      $$('h3, .tbl tbody tr, .card, .note, ul.list > li, ol.list > li, .prose > p, p.prose', sec).forEach(function (n) {
+        if (n.closest('#gear-rows') && n.tagName !== 'TR') return;
+        var t = n.tagName === 'TR' ? trTitle(n) : n.tagName === 'H3' ? n.textContent : (n.querySelector('h4, b') || n).textContent;
+        add(n, sec.id === 'horloge' ? 'tm' : 'guide', t);
+      });
+    });
+  }
+  buildIndex();
+  function variantes(tok) { var v = [tok]; if (SYN[tok]) v = v.concat(SYN[tok]); if (tok.length > 4 && tok.slice(-1) === 's') v.push(tok.slice(0, -1)); return v; }
+  /* mot qui commence par le terme cherché (évite « monter » dans « démonter ») */
+  function has(text, g) {
+    var i = text.indexOf(g);
+    while (i > -1) { if (!/[a-z0-9]/.test(text.charAt(i - 1))) return true; i = text.indexOf(g, i + 1); }
+    return false;
+  }
+  function chercher(q) {
+    var toks = norm(q).replace(/[^a-z0-9+★ ]/g, ' ').split(/\s+/).filter(function (t) { return t && t.length > 1 && STOP.indexOf(' ' + t + ' ') < 0; });
+    if (!toks.length) return [];
+    var groups = toks.map(variantes), res = [], phrase = ' ' + toks.join(' ');
+    INDEX.forEach(function (e) {
+      var score = 0, allTitle = true, hits = 0;
+      for (var i = 0; i < groups.length; i++) {
+        var hit = false, inTitle = false;
+        for (var j = 0; j < groups[i].length; j++) { var g = groups[i][j]; if (has(e.n, g)) { hit = true; if (has(e.nt, g)) inTitle = true; } }
+        if (!hit) { allTitle = false; continue; }
+        hits++;
+        if (!inTitle) allTitle = false;
+        score += inTitle ? 6 : 2;
+      }
+      if (!hits) return;
+      if (e.kind === 'faq') score += 4;
+      if (e.kind === 'cos' && allTitle && groups.length > 1) score += 4;
+      if (groups.length > 1 && e.nt.indexOf(phrase) > -1) score += 5;
+      score -= Math.min(e.txt.length, 1200) / 1200;
+      res.push({ e: e, s: score, h: hits });
+    });
+    /* tous les mots d'abord ; sinon, il peut manquer un mot */
+    var need = res.some(function (r) { return r.h === groups.length; }) ? groups.length : Math.max(1, groups.length - 1);
+    res = res.filter(function (r) { return r.h >= need; });
+    res.sort(function (a, b) { return b.s - a.s; });
+    return res.slice(0, 40).map(function (r) { return r.e; });
+  }
+  function extrait(e, q) {
+    var t = e.txt, n = e.n, toks = norm(q).split(/\s+/).filter(function (x) { return x.length > 2; });
+    var pos = 0; for (var i = 0; i < toks.length; i++) { var p = n.indexOf(toks[i]); if (p > -1) { pos = p; break; } }
+    var a = Math.max(0, pos - 60), s = (a ? '...' : '') + t.slice(a, a + 190) + (t.length > a + 190 ? '...' : '');
+    var h = esc(s);
+    toks.forEach(function (tk) { if (tk.length < 3) return; h = h.replace(new RegExp('(' + tk.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<mark>$1</mark>'); });
+    return h;
+  }
+  var q = $('#q'), box = $('#results'), sel = -1, cur = [];
+  function afficher() {
+    var v = q.value.trim(); sel = -1;
+    if (v.length < 2) { box.hidden = true; return; }
+    cur = chercher(v);
+    box.innerHTML = '<div class="head"><span>' + cur.length + (cur.length === 40 ? '+' : '') + ' résultat' + (cur.length > 1 ? 's' : '') + '</span><span>Entrée : ouvrir · Échap : fermer</span></div>' +
+      (cur.length ? cur.map(function (e, i) {
+        var k = KIND[e.kind];
+        return '<a href="#' + esc(e.node.id) + '" data-i="' + i + '"><span class="c ' + k[0] + ' k">' + k[1] + '</span><span class="t">' + esc(e.title.slice(0, 120)) + '</span><span class="s">' + extrait(e, v) + '</span><span class="w">' + esc(e.sec) + '</span></a>';
+      }).join('') : '<div class="none">Rien trouvé. Essaie un mot plus court ou en anglais (ex : tear, spark, wrath).</div>');
+    box.hidden = false;
+  }
+  function ouvrir(e) {
+    var n = e.node;
+    if (n.classList.contains('cos') && n.hidden) resetFiltres();
+    var d = n.closest('details'); while (d) { d.open = true; d = d.parentElement ? d.parentElement.closest('details') : null; }
+    if (n.tagName === 'DETAILS') n.open = true;
+    if (n.tagName === 'SUMMARY') n.parentElement.open = true;
+    box.hidden = true;
+    n.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    n.classList.remove('flash'); void n.offsetWidth; n.classList.add('flash');
+    try { history.replaceState(null, '', '#' + n.id); } catch (x) { }
+  }
+  var timer;
+  q.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(afficher, 110); });
+  q.addEventListener('focus', function () { if (q.value.trim().length > 1) afficher(); });
+  q.addEventListener('keydown', function (ev) {
+    var links = $$('a', box);
+    if (ev.key === 'Escape') { box.hidden = true; q.blur(); return; }
+    if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+      ev.preventDefault(); if (!links.length) return;
+      sel = ev.key === 'ArrowDown' ? Math.min(sel + 1, links.length - 1) : Math.max(sel - 1, 0);
+      links.forEach(function (a, i) { a.classList.toggle('sel', i === sel); }); links[sel].scrollIntoView({ block: 'nearest' });
+    }
+    if (ev.key === 'Enter') { ev.preventDefault(); var i = sel > -1 ? sel : 0; if (cur[i]) ouvrir(cur[i]); }
+  });
+  box.addEventListener('click', function (ev) { var a = ev.target.closest('a[data-i]'); if (!a) return; ev.preventDefault(); ouvrir(cur[+a.getAttribute('data-i')]); });
+  document.addEventListener('click', function (ev) { if (!ev.target.closest('.search')) box.hidden = true; });
+  document.addEventListener('keydown', function (ev) { if (ev.key === '/' && document.activeElement !== q && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) { ev.preventDefault(); q.focus(); } });
+
+  /* ---------------- Sommaire ---------------- */
+  var toc = $('#toc'), btn = $('#tocbtn');
+  btn.addEventListener('click', function () { var o = toc.classList.toggle('open'); btn.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+  toc.addEventListener('click', function (e) { if (e.target.closest('a')) { toc.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
+  var links = {}; $$('.toc a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { Object.keys(links).forEach(function (k) { links[k].classList.remove('active'); }); var a = links[x.target.id]; if (a) a.classList.add('active'); } });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    $$('main .sec').forEach(function (s) { io.observe(s); });
+  }
+  if (location.hash) { var t = document.getElementById(location.hash.slice(1)); if (t) { var d = t.closest('details'); if (d) d.open = true; if (t.tagName === 'DETAILS') t.open = true; } }
+})();
+</script>
+</body>
+</html>
